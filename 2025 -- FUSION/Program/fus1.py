@@ -35,3 +35,52 @@ lk = ranging_sensor_class("PORT4", "INDEX1")
 bk = ranging_sensor_class("PORT2", "INDEX3")
 rk = ranging_sensor_class("PORT2", "INDEX2")
 fk = ranging_sensor_class("PORT2", "INDEX1")
+
+"""
+SYSTEM
+"""
+def feed():
+    power_expand_board.set_power("DC7",100)
+
+
+"""
+CONTROLLER
+"""
+class controller():
+    def mode1():
+        if not gamepad.get_joystick("Rx") == 0:
+            en["RF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["RB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["LB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["LF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+
+        elif not gamepad.get_joystick("Lx") == 0:
+            en["RF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
+            en["RB"].set_speed(gamepad.get_joystick("Lx") / (0.05))
+            en["LB"].set_speed(gamepad.get_joystick("Lx") / (0.1))
+            en["LF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
+    
+        elif not gamepad.get_joystick("Ly") == 0:
+            en["LB"].set_speed(gamepad.get_joystick("Ly") / 1.7)
+            en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
+            en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
+            en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))
+    
+    def mode2():
+        if not gamepad.get_joystick("Rx") == 0:
+            en["RF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["RB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["LB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+            en["LF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+
+        elif not gamepad.get_joystick("Lx") == 0:
+            en["RF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
+            en["RB"].set_speed(gamepad.get_joystick("Lx") / (0.05))
+            en["LB"].set_speed(gamepad.get_joystick("Lx") / (0.1))
+            en["LF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
+    
+        elif not gamepad.get_joystick("Ly") == 0:
+            en["LB"].set_speed(gamepad.get_joystick("Ly") / 1.7)
+            en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
+            en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
+            en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))

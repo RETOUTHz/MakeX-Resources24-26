@@ -84,3 +84,15 @@ class controller():
             en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
             en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
             en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))
+
+"""
+MAIN
+"""
+while True:
+    time.sleep(0.001)
+    if power_manage_module.is_auto_mode():
+        select()
+        while not not power_manage_module.is_auto_mode():
+            pass
+    else:
+        controller.mode1()

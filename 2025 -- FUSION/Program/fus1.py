@@ -28,6 +28,13 @@ sv = {
 }
 
 """
+Auto seclet
+"""
+def select():
+    Auto.Left_block_auto()
+    #Auto.Right_block_auto()
+    #Auto.Emergency()
+"""
 RANGGING
 """
 debug = led_matrix_class("PORT2","INDEX1")
@@ -84,7 +91,16 @@ class controller():
             en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
             en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
             en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))
-
+"""
+AUTO
+"""
+class Auto():
+    pass
+"""
+MANUAL
+"""
+class Manual():
+    pass
 """
 MAIN
 """
@@ -95,4 +111,4 @@ while True:
         while not not power_manage_module.is_auto_mode():
             pass
     else:
-        controller.mode1()
+        controller.mode1() 

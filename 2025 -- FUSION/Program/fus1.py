@@ -46,8 +46,45 @@ fk = ranging_sensor_class("PORT2", "INDEX1")
 """
 SYSTEM
 """
-def feed():
-    power_expand_board.set_power("DC7",100)
+def feed(a:int):
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC1",a)
+
+def lift(a:int):
+    power_expand_board.set_power("DC1",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC1",0)
+
+def blushless(a:int):
+    power_expnad.set_power("BL1",a)
+    power_expnad.set_power("BL2",a)
+
+def stop_all():
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC1",0)
+
+def gripper(a:int):
+    power_expand_board.set_power("DC2",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC2",10)
+
+def red_servo():
+    if sv["s6"].get_value("current") > 1250:
+        sv["s6"].set_power(0)
 
 
 """
@@ -111,4 +148,5 @@ while True:
         while not not power_manage_module.is_auto_mode():
             pass
     else:
-        controller.mode1() 
+        controller.mode1()
+        red_servo() 

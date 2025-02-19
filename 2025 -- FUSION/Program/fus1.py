@@ -17,136 +17,45 @@ import math
 NovaPI
 """
 en = {
-    "LF": encoder_motor_class("M2", "INDEX1"), #Left_Front wheel
-    "LB": encoder_motor_class("M1", "INDEX1"), #Lef_Back wheel
-    "RF": encoder_motor_class("M4", "INDEX1"), #Right_Front wheel 
+    "LF": encoder_motor_class("M1", "INDEX1"), #Left_Front wheel
+    "LB": encoder_motor_class("M2", "INDEX1"), #Left_Back wheel
+    "RF": encoder_motor_class("M5", "INDEX1"), #Right_Front wheel 
     "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
 }
 
-sv = {
-    "s6" : smartservo_class("M6","INDEX1")
-}
-
-"""
-Auto seclet
-"""
-def select():
-    Auto.Left_block_auto()
-    #Auto.Right_block_auto()
-    #Auto.Emergency()
-"""
-RANGGING
-"""
-debug = led_matrix_class("PORT2","INDEX1")
-lk = ranging_sensor_class("PORT4", "INDEX1")
-bk = ranging_sensor_class("PORT2", "INDEX3")
-rk = ranging_sensor_class("PORT2", "INDEX2")
-fk = ranging_sensor_class("PORT2", "INDEX1")
-
-"""
-SYSTEM
-"""
-def feed(a:int):
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC1",a)
-
-def lift(a:int):
-    power_expand_board.set_power("DC1",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC1",0)
-
-def blushless(a:int):
-    power_expnad.set_power("BL1",a)
-    power_expnad.set_power("BL2",a)
-
-def stop_all():
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC1",0)
-
-def gripper(a:int):
-    power_expand_board.set_power("DC2",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC2",10)
-
-def red_servo():
-    if sv["s6"].get_value("current") > 1250:
-        sv["s6"].set_power(0)
-
+class movement:
+    def control_movement_font():
+        rf = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.75
+        lb = (gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.75
+        lf = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.75
+        rb = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.75
+        en["RF"].set_power(-rf)
+        en["RB"].set_power(-rb)
+        en["LB"].set_power(lb)
+        en["LF"].set_power(lf)
+    
+    def control_movement_right():
+        rf = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.75
+        lb = (gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.75
+        lf = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.75
+        rb = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.75
+        en["RF"].set_power(rf)
+        en["RB"].set_power(rb)
+        en["LB"].set_power(lb)
+        en["LF"].set_power(lf)
 
 """
 CONTROLLER
 """
 class controller():
     def mode1():
-        if not gamepad.get_joystick("Rx") == 0:
-            en["RF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["RB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["LB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["LF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-
-        elif not gamepad.get_joystick("Lx") == 0:
-            en["RF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-            en["RB"].set_speed(gamepad.get_joystick("Lx") / (0.05))
-            en["LB"].set_speed(gamepad.get_joystick("Lx") / (0.1))
-            en["LF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-    
-        elif not gamepad.get_joystick("Ly") == 0:
-            en["LB"].set_speed(gamepad.get_joystick("Ly") / 1.7)
-            en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
-            en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
-            en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))
+        movement.control_movement_font()
     
     def mode2():
-        if not gamepad.get_joystick("Rx") == 0:
-            en["RF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["RB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["LB"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
-            en["LF"].set_speed(gamepad.get_joystick("Rx") / (1.95 * -1))
+        movement.control_movement_right()
 
-        elif not gamepad.get_joystick("Lx") == 0:
-            en["RF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-            en["RB"].set_speed(gamepad.get_joystick("Lx") / (0.05))
-            en["LB"].set_speed(gamepad.get_joystick("Lx") / (0.1))
-            en["LF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-    
-        elif not gamepad.get_joystick("Ly") == 0:
-            en["LB"].set_speed(gamepad.get_joystick("Ly") / 1.7)
-            en["LF"].set_speed(gamepad.get_joystick("Ly") / (1.635 * 1))
-            en["RF"].set_speed(gamepad.get_joystick("Ly") / (1.635* -1))
-            en["RB"].set_speed(gamepad.get_joystick("Ly") / (1.7 * -1))
-"""
-AUTO
-"""
-class Auto():
-    pass
-"""
-MANUAL
-"""
-class Manual():
-    pass
 """
 MAIN
 """
 while True:
-    time.sleep(0.001)
-    if power_manage_module.is_auto_mode():
-        select()
-        while not not power_manage_module.is_auto_mode():
-            pass
-    else:
-        controller.mode1()
-        red_servo() 
+    controller.mode2()

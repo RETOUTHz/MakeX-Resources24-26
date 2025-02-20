@@ -43,8 +43,18 @@ def feed(a:int):
     en["FEED"].set_power(-a)
 
 def stop_all():
-    power_expand_board.set_power("DC")
+    power_expand_board.set_power("DC1")
+    power_expand_board.set_power("DC2")
+    power_expand_board.set_power("DC3")
+    power_expand_board.set_power("DC4")
+    power_expand_board.set_power("DC5")
+    power_expand_board.set_power("DC6")
+    power_expand_board.set_power("DC7")
+    power_expand_board.set_power("DC8")
 
+"""
+CONTROLLER
+"""
 class movement:
     def control_movement_font():            
         rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx")) * 0.75
@@ -87,11 +97,17 @@ class controller():
 
     def mode2():
         movement.control_movement_right()
-        if gamepad.is_key_pressed("N1"):
-            feed(100)
+        if gamepad.is_key_pressed("Up"):
+            lift(-100)
 
-        elif gamepad.is_key_pressed("L1"):
-            feed(0)
+        elif gamepad.is_key_pressed("Down"):
+            lift(100)
+
+        elif gamepad.is_key_pressed("Right"):
+            gripper(50)
+
+        elif gamepad.is_key_pressed("Left"):
+            gripper(-50)
 
     def change_mode():
         if gamepad.is_key_pressed("+"):

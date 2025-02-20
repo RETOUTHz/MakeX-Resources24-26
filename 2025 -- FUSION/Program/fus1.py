@@ -23,6 +23,29 @@ en = {
     "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
 }
 
+sv = {
+    "s" : smartservo_class(""),"INDEX1")
+}
+"""
+SYSTEM
+"""
+def blush(a:int):
+    power_expand_board.set_power("BL1",a)
+
+def lift(a:int):
+    power_expand_board.set_power("DC7",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC7",-10)
+
+def gripper(a:int):
+    power_expand_board.set_power("DC8",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC8",10)
+
+def red_servo():
+    if sv["s6"].get_value("current") > 1250:
+        sv["s6"].set_power(0)
+
 class movement:
     def control_movement_font():            
         rf = (gamepad.get_joystick("Lx") +gamepad.get_joystick("Rx")) * 0.75
@@ -50,7 +73,22 @@ CONTROLLER
 class controller():
     def mode1():
         movement.control_movement_font()
-    
+        if gamepad.is_key_pressed("Up"):
+            lift(-100)
+        elif gamepad.is_key_pressed("Down"):
+            lift(100)
+        elif gamepad.is_key_pressed("Right"):
+            gripper(50)
+        elif gamepad.is_key_pressed("Left"):
+            gripper(-50)
+        elif gamepad.is_key_pressed(""):
+            blush(50)
+        elif gamepad.is_key_pressed(""):
+            blush(0)
+        elif gamepad.is_key_pressed(""):
+            sv["s6"].move_to(-55,50)
+        elif gamepad.is_key_pressed(""):
+            sv["s6"].move_to(-110,40)
     def mode2():
         movement.control_movement_right()
 

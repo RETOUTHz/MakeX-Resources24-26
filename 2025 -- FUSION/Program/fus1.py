@@ -22,40 +22,13 @@ en = {
     "RF": encoder_motor_class("M5", "INDEX1"), #Right_Front wheel 
     "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
 }
-"""
-SYSTEM
-"""
-def feed(a:int,b:int):
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC2",b)
-def stop_all():
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC2",0)
-    power_expand_board.set_power("DC3",0)
-    power_expand_board.set_power("DC4",0)
-    power_expand_board.set_power("DC5",0)
-    power_expand_board.set_power("DC6",0)
-    power_expand_board.set_power("DC7",0)
-    power_expand_board.set_power("DC8",0)
-
-def blushless(a:int,b:int):
-    power_expand_board.set_power("BL1",a)
-    power_expand_board.set_power("BL2",b)
-
-def shoot(a:int,b:int,c:int):
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC2",b)
-    power_expand_board.set_power("DC3",c)
-"""
-CONTROLLER
-"""
 
 class movement:
-    def control_movement_font():
-        rf = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.75
-        lb = (gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.75
-        lf = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.75
-        rb = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.75
+    def control_movement_font():            
+        rf = (gamepad.get_joystick("Lx") +gamepad.get_joystick("Rx")) * 0.75
+        lb = (gamepad.get_joystick("Lx") -gamepad.get_joystick("Rx")) * 0.75
+        lf = (gamepad.get_joystick("Ly") -gamepad.get_joystick("Rx")) * 0.75
+        rb = (gamepad.get_joystick("Ly") +gamepad.get_joystick("Rx")) * 0.75
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -71,30 +44,15 @@ class movement:
         en["LB"].set_power(lb)
         en["LF"].set_power(lf)
 
+"""
+CONTROLLER
+"""
 class controller():
     def mode1():
         movement.control_movement_font()
-
-        if gamepad.is_key_pressed("N1"):
-            feed(100,100)
-
-        elif gamepad.is_key_pressed("≡"):
-            controller.mode2()
-
-        elif gamepad.is_key_pressed("+"):
-            controller.mode1()
-
+    
     def mode2():
         movement.control_movement_right()
-        
-        if gamepad.is_key_pressed("N1"):
-            feed(100,100)
-
-        elif gamepad.is_key_pressed("+"):
-            controller.mode1()
-
-        elif gamepad.is_key_pressed("≡"):
-            controller.mode2()    
 
 """
 MAIN

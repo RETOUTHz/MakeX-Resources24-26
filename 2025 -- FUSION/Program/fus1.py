@@ -23,6 +23,11 @@ en = {
     "RB": encoder_motor_class("M6", "INDEX1"),  #Right_Back wheel
     "FEED": encoder_motor_class("M4", "INDEX1")
 }
+
+sv = {
+    "shooter" : smartservo_class("M1","INDEX1")
+}
+
 """
 SYSTEM
 """
@@ -62,6 +67,10 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC2",0)
     en["FEED"].set_power(0)
 
+def red_servo():
+    if sv["shooter"].get_value("current") > 1250:
+        sv["shooter"].set_power(0)
+
 
 """
 CONTROLLER
@@ -95,7 +104,7 @@ class controller():
     def mode1():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
-            feed(100,-100)
+            feed(-100,100)
 
         elif gamepad.is_key_pressed("L1"):
             feed(0,0)
@@ -107,12 +116,18 @@ class controller():
             shoot(100,-100,-100)
         
         elif gamepad.is_key_pressed("R1"):
-            power_expand_board.set_power("BL1",50)
-            power_expand_board.set_power("BL2",50)
+            power_expand_board.set_power("BL1",80)
+            power_expand_board.set_power("BL2",80)
 
         elif gamepad.is_key_pressed("R2"):
             power_expand_board.set_power("BL1",0)
             power_expand_board.set_power("BL2",0)
+
+        elif gamepad.is_key_pressed("Up"):
+            sv["shooter"].move_to(60,50)
+
+        elif gamepad.is_key_pressed("Down"):
+            sv["shooter"].move_to(95,50)
 
     def mode2():
         movement.control_movement_right()
@@ -141,5 +156,7 @@ while True:
     controller.change_mode()
     if controller.mode == "1":
         controller.mode1()
+        red_servo()
     else:
         controller.mode2()
+        red_servo()

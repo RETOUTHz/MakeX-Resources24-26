@@ -128,6 +128,12 @@ class controller():
 
         elif gamepad.is_key_pressed("Down"):
             sv["shooter"].move_to(95,50)
+        
+        elif gamepad.is_key_pressed("Right"):
+            sv["shooter"].move(-5,10)
+
+        elif gamepad.is_key_pressed("Left"):
+            sv["shooter"].move(5,10)
 
     def mode2():
         movement.control_movement_right()
@@ -137,10 +143,10 @@ class controller():
         elif gamepad.is_key_pressed("Down"):
             lift(100)
 
-        elif gamepad.is_key_pressed("Right"):
+        elif gamepad.is_key_pressed("N2"):
             gripper(50)
 
-        elif gamepad.is_key_pressed("Left"):
+        elif gamepad.is_key_pressed("N3"):
             gripper(-50)
 
     def change_mode():

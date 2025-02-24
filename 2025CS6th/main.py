@@ -59,7 +59,7 @@ SYSTEM
 def feed(a:int,b:int,c:int,d:int):
     debug.show("FEED",wait = False)
     power_expand_board.set_power("DC7",a)
-    power_expand_board.set_power("DC1",b)
+    power_expand_board.set_power("DC6",b)
     power_expand_board.set_power("DC2",c)
     power_expand_board.set_power("DC5",d)
 
@@ -78,11 +78,11 @@ def blush(a:int,b:int):
 
 def load(a:int,b:int,c:int):
     debug.show("YING",wait = False)
-    power_expand_board.set_power("DC2",a)
+    power_expand_board.set_power("DC6",a)
     power_expand_board.set_power("DC7",b)
     power_expand_board.set_power("DC5",c)
     time.sleep(0.1)
-    power_expand_board.set_power("DC2",0)
+    power_expand_board.set_power("DC6",0)
     power_expand_board.set_power("DC7",0)
     power_expand_board.set_power("DC5",0)
 

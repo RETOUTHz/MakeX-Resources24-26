@@ -42,11 +42,11 @@ def lift(a:int):
 def gripper(a:int):
     power_expand_board.set_power("DC8",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC8",10)
+    power_expand_board.set_power("DC8",0)
 
 def feed(a:int,b:int):
     power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC2",b)
+    power_expand_board.set_power("DC2",-b)
 
 def stop_all():
     power_expand_board.set_power("DC1")
@@ -60,11 +60,11 @@ def stop_all():
 
 def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC2",b)
+    power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
     time.sleep(0.1)
-    power_expand_board.set_power("DC1",0)
     power_expand_board.set_power("DC2",0)
+    power_expand_board.set_power("DC1",0)
     en["FEED"].set_power(0)
 
 def red_servo():
@@ -72,7 +72,7 @@ def red_servo():
         sv["shooter"].set_power(0)
 
 def servo_move(angle):
-    if sv["shooter"].get_value("angle") < 110:
+    if sv["shooter"].get_value("angle") < 105:
         sv["shooter"].move(angle, 50)
     else:
         sv["shooter"].move_to(95, 50)
@@ -110,20 +110,20 @@ class controller():
     def mode1():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
-            feed(-100,100)
+            feed(100,60)
 
         elif gamepad.is_key_pressed("L1"):
             feed(0,0)
         
         elif gamepad.is_key_pressed("N2"):
-            shoot(-100,100,100)
+            shoot(100,60,100)
 
         elif gamepad.is_key_pressed("N3"):
-            shoot(100,-100,-100)
+            shoot(-100,-60,-100)
         
         elif gamepad.is_key_pressed("R1"):
-            power_expand_board.set_power("BL1",70)
-            power_expand_board.set_power("BL2",70)
+            power_expand_board.set_power("BL1",80)
+            power_expand_board.set_power("BL2",80)
 
         elif gamepad.is_key_pressed("R2"):
             power_expand_board.set_power("BL1",0)
@@ -133,7 +133,7 @@ class controller():
             sv["shooter"].move_to(50,50)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(110,50)
+            sv["shooter"].move_to(81,50)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -142,8 +142,8 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            power_expand_board.set_power("BL1",20)
-            power_expand_board.set_power("BL2",20)
+            power_expand_board.set_power("BL1",50)
+            power_expand_board.set_power("BL2",50)
 
 
 
@@ -155,10 +155,10 @@ class controller():
         elif gamepad.is_key_pressed("Down"):
             lift(100)
 
-        elif gamepad.is_key_pressed("N2"):
+        elif gamepad.is_key_pressed("N4"):
             gripper(50)
 
-        elif gamepad.is_key_pressed("N3"):
+        elif gamepad.is_key_pressed("N1"):
             gripper(-50)
 
     def change_mode():

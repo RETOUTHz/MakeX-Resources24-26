@@ -18,13 +18,13 @@ import math
 
 en = {
     "LF": encoder_motor_class("M2", "INDEX1"), #Left_Front wheel
-    "LB": encoder_motor_class("M1", "INDEX1"), #Lef_Back wheel
-    "RF": encoder_motor_class("M4", "INDEX1"), #Right_Front wheel 
-    "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
+    "LB": encoder_motor_class("M4", "INDEX1"), #Lef_Back wheel
+    "RF": encoder_motor_class("M3", "INDEX1"), #Right_Front wheel 
+    "RB": encoder_motor_class("M5", "INDEX1")  #Right_Back wheel
 }
 
 sv = {
-    "s6" : smartservo_class("M6","INDEX1")
+    "s6" : smartservo_class("M2","INDEX1")
 }
 """
 AUTO SECLET
@@ -47,9 +47,9 @@ fk = ranging_sensor_class("PORT2", "INDEX1")
 
 
 left_forward_wheel = encoder_motor_class("M2", "INDEX1")
-right_forward_wheel = encoder_motor_class("M5", "INDEX1")
-left_back_wheel = encoder_motor_class("M1", "INDEX1")
-right_back_wheel = encoder_motor_class("M6", "INDEX1")
+right_forward_wheel = encoder_motor_class("M3", "INDEX1")
+left_back_wheel = encoder_motor_class("M4", "INDEX1")
+right_back_wheel = encoder_motor_class("M5", "INDEX1")
 
 MAX_SPEED = 255
 SPEED_MULTIPLIER = 1
@@ -544,12 +544,12 @@ class manual():
             feed(-100,-60,-100,-100)
         
         elif gamepad.is_key_pressed("≡"):
-            sv["s6"].move_to(-55,50)
+            sv["s6"].move_to(-45,40)
             power_expand_board.set_power("BL1",80)
             power_expand_board.set_power("BL2",80)
         
         elif gamepad.is_key_pressed("+"):
-            sv["s6"].move_to(-110,40)
+            sv["s6"].move_to(-100,40)
             power_expand_board.set_power("BL1",80)
             power_expand_board.set_power("BL2",80)
 

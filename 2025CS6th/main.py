@@ -108,9 +108,9 @@ def tp(a:int):
     power_expand_board.set_power("DC7",a)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC2",a)
+    power_expand_board.set_power("DC1",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC2",10)
+    power_expand_board.set_power("DC1",10)
 
 def forward(a:int):
     en["RF"].set_power(-a)
@@ -531,7 +531,7 @@ class manual():
             sv["s6"].move_to(-75,50)
         
         elif gamepad.is_key_pressed("R1"):
-            blush(100,100)
+            blush(50,50)
         
         elif gamepad.is_key_pressed("R2"):
             blush(0,0)
@@ -544,12 +544,12 @@ class manual():
             feed(-100,-60,-100,-100)
         
         elif gamepad.is_key_pressed("≡"):
-            sv["s6"].move_to(-45,40)
+            sv["s6"].move_to(-40,40)
             power_expand_board.set_power("BL1",80)
             power_expand_board.set_power("BL2",80)
         
         elif gamepad.is_key_pressed("+"):
-            sv["s6"].move_to(-100,40)
+            sv["s6"].move_to(-100,50)
             power_expand_board.set_power("BL1",80)
             power_expand_board.set_power("BL2",80)
 

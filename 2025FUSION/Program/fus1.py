@@ -71,6 +71,10 @@ def red_servo():
     if sv["shooter"].get_value("current") > 1250:
         sv["shooter"].set_power(0)
 
+def limit_servo():
+    if sv["shooter"].get_value("angle") > 100:
+        sv["shooter"].move_to(95,50)
+
 
 """
 CONTROLLER
@@ -116,24 +120,30 @@ class controller():
             shoot(100,-100,-100)
         
         elif gamepad.is_key_pressed("R1"):
-            power_expand_board.set_power("BL1",80)
-            power_expand_board.set_power("BL2",80)
+            power_expand_board.set_power("BL1",70)
+            power_expand_board.set_power("BL2",70)
 
         elif gamepad.is_key_pressed("R2"):
             power_expand_board.set_power("BL1",0)
             power_expand_board.set_power("BL2",0)
 
         elif gamepad.is_key_pressed("Up"):
-            sv["shooter"].move_to(60,50)
+            sv["shooter"].move_to(50,50)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(95,50)
+            sv["shooter"].move_to(110,50)
         
         elif gamepad.is_key_pressed("Right"):
-            sv["shooter"].move(-5,10)
+            sv["shooter"].move(-3,50)
 
         elif gamepad.is_key_pressed("Left"):
-            sv["shooter"].move(5,10)
+            sv["shooter"].move(3,50)
+        
+        elif gamepad.is_key_pressed("N4"):
+            power_expand_board.set_power("BL1",20)
+            power_expand_board.set_power("BL2",20)
+
+
 
     def mode2():
         movement.control_movement_right()

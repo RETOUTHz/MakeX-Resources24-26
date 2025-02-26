@@ -142,8 +142,8 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            power_expand_board.set_power("BL1",50)
-            power_expand_board.set_power("BL2",50)
+            power_expand_board.set_power("BL1",70)
+            power_expand_board.set_power("BL2",70)
 
 
 

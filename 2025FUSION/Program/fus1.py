@@ -156,10 +156,27 @@ class controller():
             lift(100)
 
         elif gamepad.is_key_pressed("N4"):
-            gripper(50)
+            gripper(100)
 
         elif gamepad.is_key_pressed("N1"):
-            gripper(-50)
+            gripper(-100)
+
+        elif gamepad.is_key_pressed("N2"):
+            power_expand_board.set_power("DC7",-100)
+            power_expand_board.set_power("DC8",100)
+            time.sleep(0.01)
+            power_expand_board.set_power("DC7",-10)
+            power_expand_board.set_power("DC8",100)
+
+        elif gamepad.is_key_pressed("N3"):
+            power_expand_board.set_power("DC7",100)
+            power_expand_board.set_power("DC8",100)
+            time.sleep(0.01)
+            power_expand_board.set_power("DC7",-10)
+            power_expand_board.set_power("DC8",100)
+
+        elif gamepad.is_key_pressed("L1"):
+            stop_all()
 
     def change_mode():
         if gamepad.is_key_pressed("+"):

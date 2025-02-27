@@ -110,13 +110,13 @@ class controller():
     def mode1():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
-            feed(100,60)
+            feed(100,100)
 
         elif gamepad.is_key_pressed("L1"):
             feed(0,0)
         
         elif gamepad.is_key_pressed("N2"):
-            shoot(100,60,100)
+            shoot(100,100,100)
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-100,-60,-100)
@@ -133,7 +133,7 @@ class controller():
             sv["shooter"].move_to(50,50)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(81,50)
+            sv["shooter"].move_to(82,50)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -142,8 +142,8 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            power_expand_board.set_power("BL1",70)
-            power_expand_board.set_power("BL2",70)
+            power_expand_board.set_power("BL1",65)
+            power_expand_board.set_power("BL2",65)
 
 
 

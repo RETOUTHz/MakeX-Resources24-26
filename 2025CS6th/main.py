@@ -81,11 +81,11 @@ def load(a:int,b:int,c:int):
     debug.show("YING",wait = False)
     power_expand_board.set_power("DC6",a)
     power_expand_board.set_power("DC7",b)
-    power_expand_board.set_power("DC5",c)
+    power_expand_board.set_power("DC8",c)
     time.sleep(0.1)
     power_expand_board.set_power("DC6",0)
     power_expand_board.set_power("DC7",0)
-    power_expand_board.set_power("DC5",0)
+    power_expand_board.set_power("DC8",0)
 
 
 def stop_all():
@@ -101,9 +101,9 @@ def stop_all():
 
 def lift(a:int): 
     debug.show("LIFT",wait = False)
-    power_expand_board.set_power("DC8",a)
+    power_expand_board.set_power("DC5",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC8",-5)
+    power_expand_board.set_power("DC5",-5)
 
 def tp(a:int):
     power_expand_board.set_power("DC7",a)
@@ -523,10 +523,10 @@ class manual():
             feed(90,100,0,0)
 
         elif gamepad.is_key_pressed("N2"):
-            load(100,100,100)
+            load(100,100,-100)
         
         elif gamepad.is_key_pressed("N3"):
-            load(-100,-50,-100)
+            load(-100,-50,100)
         
         elif gamepad.is_key_pressed("N4"):
             sv["s6"].move_to(-75,50)
@@ -555,10 +555,10 @@ class manual():
             power_expand_board.set_power("BL2",80)
 
         elif gamepad.is_key_pressed("Up"):
-            lift(-100)
+            lift(100)
 
         elif gamepad.is_key_pressed("Down"):
-            lift(80)
+            lift(-80)
 
         elif gamepad.is_key_pressed("Left"):
             gripper(-100)

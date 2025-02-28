@@ -133,7 +133,7 @@ class controller():
             sv["shooter"].move_to(50,50)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(82,50)
+            sv["shooter"].move_to(86.5,50)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)

@@ -523,10 +523,10 @@ class manual():
             feed(90,100,0,0)
 
         elif gamepad.is_key_pressed("N2"):
-            load(100,100,-100)
+            load(100,100,100)
         
         elif gamepad.is_key_pressed("N3"):
-            load(-100,-50,100)
+            load(-100,-50,-100)
         
         elif gamepad.is_key_pressed("N4"):
             sv["s6"].move_to(-75,50)

@@ -12,9 +12,9 @@ This repository is a collection of information about the MakeX competition from 
 * [Rules Guide : MakeX Challege 2025](https://www.makex.cc/wp-content/uploads/2025/02/English2024-2025-MakeX-Challenge-Ultimate-Winner-Rules-Guide-V2.0.pdf)
 
 ## Resources
-*[Model](https://grabcad.com/gerzaza-1)
-*[CS6th](https://github.com/RETOUTHz/CS6th_MakeX2024)
-*[FUSION](https://github.com/RETOUTHz/FUSION_MakeX2025)
+* [Model](https://grabcad.com/gerzaza-1)
+* [CS6th](https://github.com/RETOUTHz/CS6th_MakeX2024)
+* [FUSION](https://github.com/RETOUTHz/FUSION_MakeX2025)
 
 ## Team
 

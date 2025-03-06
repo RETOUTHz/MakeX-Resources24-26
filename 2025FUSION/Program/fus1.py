@@ -197,10 +197,13 @@ class controller():
 MAIN
 """
 while True:
-    controller.change_mode()
-    if controller.mode == "1":
-        controller.mode1()
-        red_servo()
+    if power_manage_module.is_auto_mode():
+        pass
     else:
-        controller.mode2()
-        red_servo()
+        controller.change_mode()
+        if controller.mode == "1":
+            controller.mode1()
+            red_servo()
+        else:
+            controller.mode2()
+            red_servo()

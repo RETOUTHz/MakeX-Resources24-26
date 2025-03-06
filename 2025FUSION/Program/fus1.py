@@ -198,7 +198,8 @@ MAIN
 """
 while True:
     if power_manage_module.is_auto_mode():
-        pass
+        while not not power_manage_module.is_auto_mode():
+            pass
     else:
         controller.change_mode()
         if controller.mode == "1":

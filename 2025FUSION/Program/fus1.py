@@ -111,6 +111,7 @@ CONTROLLER
 class controller():
     mode = "1"
     def mode1():
+        global open_feed
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
             feed(100,100)

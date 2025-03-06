@@ -28,8 +28,6 @@ sv = {
     "shooter" : smartservo_class("M1","INDEX1")
 }
 
-open_feed = True
-
 """
 SYSTEM
 """
@@ -59,6 +57,7 @@ def stop_all():
     power_expand_board.set_power("DC6")
     power_expand_board.set_power("DC7")
     power_expand_board.set_power("DC8")
+    en["FEED"].set_power(0)
 
 def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC1",a)
@@ -69,6 +68,12 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC2",0)
     en["FEED"].set_power(0)
 
+def shooting(a:int,b:int):
+    power_expand_board.set_power("BL1",a)
+    power_expand_board.set_power("BL2",a)
+
+def shooter_angle(a:int):
+    sv["shooter"].move(a,50)
 
 def red_servo():
     if sv["shooter"].get_value("current") > 1250:
@@ -115,10 +120,10 @@ class controller():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
             feed(100,100)
-            open_feed = True
+
         elif gamepad.is_key_pressed("L1"):
-            feed(0,0)
-            sv["shooter"].move_to(83,50)
+            stop_all()
+            shooter_angle(50)
 
         elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)
@@ -130,18 +135,16 @@ class controller():
             shoot(-100,-100,-100)
         
         elif gamepad.is_key_pressed("R1"):
-            power_expand_board.set_power("BL1",89)
-            power_expand_board.set_power("BL2",89)
+            shooting(89)
 
         elif gamepad.is_key_pressed("R2"):
-            power_expand_board.set_power("BL1",0)
-            power_expand_board.set_power("BL2",0)
+            shooting(0)
 
         elif gamepad.is_key_pressed("Up"):
-            sv["shooter"].move_to(30,50)
+            shooter_angle(30)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(87,50)
+            shooter_angle(87)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -150,11 +153,7 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            power_expand_board.set_power("BL1",68)
-            power_expand_board.set_power("BL2",68)
-
-
-
+            shooting(68)
 
 
     def mode2():
@@ -173,15 +172,15 @@ class controller():
 
         elif gamepad.is_key_pressed("N2"):
             power_expand_board.set_power("DC7",-100)
-            power_expand_board.set_power("DC8",100)
-            time.sleep(0.01)
+            power_expand_board.set_power("DC8",50)
+            time.sleep(0.1)
             power_expand_board.set_power("DC7",-10)
-            power_expand_board.set_power("DC8",100)
+            power_expand_board.set_power("DC8",50)
 
         elif gamepad.is_key_pressed("N3"):
             power_expand_board.set_power("DC7",100)
             power_expand_board.set_power("DC8",100)
-            time.sleep(0.01)
+            time.sleep(0.1)
             power_expand_board.set_power("DC7",-10)
             power_expand_board.set_power("DC8",100)
 

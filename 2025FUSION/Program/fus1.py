@@ -28,6 +28,8 @@ sv = {
     "shooter" : smartservo_class("M1","INDEX1")
 }
 
+open_feed = True
+
 """
 SYSTEM
 """
@@ -112,7 +114,7 @@ class controller():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
             feed(100,100)
-
+            open_feed = True
         elif gamepad.is_key_pressed("L1"):
             feed(0,0)
             sv["shooter"].move_to(83,50)
@@ -124,6 +126,7 @@ class controller():
             shoot(100,100,100)
             time.sleep(0.1)
             shoot(100,100,-50)
+            open_feed = False
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-100,-100,-100)
@@ -153,9 +156,10 @@ class controller():
             power_expand_board.set_power("BL2",68)
 
         else:
-            power_expand_board.set_power("DC1",0)
-            power_expand_board.set_power("DC2",0)
-            en["FEED"].set_power(0)
+            if open_feed == False:
+                power_expand_board.set_power("DC1",0)
+                power_expand_board.set_power("DC2",0)
+                en["FEED"].set_power(0)
 
 
 

@@ -63,9 +63,10 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
     time.sleep(0.1)
-    power_expand_board.set_power("DC2",0)
-    power_expand_board.set_power("DC1",0)
-    en["FEED"].set_power(0)
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC2",-b)
+    en["FEED"].set_power(-c)
+
 
 def red_servo():
     if sv["shooter"].get_value("current") > 1250:
@@ -114,16 +115,22 @@ class controller():
 
         elif gamepad.is_key_pressed("L1"):
             feed(0,0)
-        
+            sv["shooter"].move_to(83,50)
+
+        elif gamepad.is_key_pressed("L2"):
+            shoot(0,0,-50)
+
         elif gamepad.is_key_pressed("N2"):
             shoot(100,100,100)
+            time.sleep(0.1)
+            shoot(100,100,-50)
 
         elif gamepad.is_key_pressed("N3"):
-            shoot(-100,-60,-100)
+            shoot(-100,-100,-100)
         
         elif gamepad.is_key_pressed("R1"):
-            power_expand_board.set_power("BL1",80)
-            power_expand_board.set_power("BL2",80)
+            power_expand_board.set_power("BL1",89)
+            power_expand_board.set_power("BL2",89)
 
         elif gamepad.is_key_pressed("R2"):
             power_expand_board.set_power("BL1",0)
@@ -133,7 +140,7 @@ class controller():
             sv["shooter"].move_to(50,50)
 
         elif gamepad.is_key_pressed("Down"):
-            sv["shooter"].move_to(86.5,50)
+            sv["shooter"].move_to(87,50)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -142,8 +149,14 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            power_expand_board.set_power("BL1",65)
-            power_expand_board.set_power("BL2",65)
+            power_expand_board.set_power("BL1",68)
+            power_expand_board.set_power("BL2",68)
+
+        else:
+            power_expand_board.set_power("DC1",0)
+            power_expand_board.set_power("DC2",0)
+            en["FEED"].set_power(0)
+
 
 
 

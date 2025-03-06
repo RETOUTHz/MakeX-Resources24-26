@@ -65,9 +65,9 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
     time.sleep(0.1)
-    power_expand_board.set_power("DC1",a)
-    power_expand_board.set_power("DC2",-b)
-    en["FEED"].set_power(-c)
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC2",0)
+    en["FEED"].set_power(0)
 
 
 def red_servo():
@@ -120,14 +120,11 @@ class controller():
             feed(0,0)
             sv["shooter"].move_to(83,50)
 
-        elif gamepad.is_key_pressed("L2"):
+        elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)
 
         elif gamepad.is_key_pressed("N2"):
             shoot(100,100,100)
-            time.sleep(0.1)
-            shoot(100,100,-50)
-            open_feed = False
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-100,-100,-100)
@@ -141,7 +138,7 @@ class controller():
             power_expand_board.set_power("BL2",0)
 
         elif gamepad.is_key_pressed("Up"):
-            sv["shooter"].move_to(50,50)
+            sv["shooter"].move_to(30,50)
 
         elif gamepad.is_key_pressed("Down"):
             sv["shooter"].move_to(87,50)
@@ -156,11 +153,6 @@ class controller():
             power_expand_board.set_power("BL1",68)
             power_expand_board.set_power("BL2",68)
 
-        else:
-            if open_feed == False:
-                power_expand_board.set_power("DC1",0)
-                power_expand_board.set_power("DC2",0)
-                en["FEED"].set_power(0)
 
 
 

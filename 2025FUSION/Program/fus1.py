@@ -17,10 +17,10 @@ import math
 NovaPI
 """
 en = {
-    "LF": encoder_motor_class("M1", "INDEX1"), #Left_Front wheel
+    "LF": encoder_motor_class("M6", "INDEX1"), #Left_Front wheel
     "LB": encoder_motor_class("M2", "INDEX1"), #Left_Back wheel
-    "RF": encoder_motor_class("M5", "INDEX1"), #Right_Front wheel 
-    "RB": encoder_motor_class("M6", "INDEX1"),  #Right_Back wheel
+    "RF": encoder_motor_class("M1", "INDEX1"), #Right_Front wheel 
+    "RB": encoder_motor_class("M5", "INDEX1"),  #Right_Back wheel
     "FEED": encoder_motor_class("M4", "INDEX1")
 }
 

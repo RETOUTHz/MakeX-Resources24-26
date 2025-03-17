@@ -532,7 +532,7 @@ class manual():
             sv["s6"].move_to(-75,50)
         
         elif gamepad.is_key_pressed("R1"):
-            blush(50,50)
+            blush(100,100)
         
         elif gamepad.is_key_pressed("R2"):
             blush(0,0)
@@ -546,13 +546,13 @@ class manual():
         
         elif gamepad.is_key_pressed("≡"):
             sv["s6"].move_to(-40,40)
-            power_expand_board.set_power("BL1",80)
-            power_expand_board.set_power("BL2",80)
+            power_expand_board.set_power("BL1",100)
+            power_expand_board.set_power("BL2",100)
         
         elif gamepad.is_key_pressed("+"):
             sv["s6"].move_to(-100,50)
-            power_expand_board.set_power("BL1",80)
-            power_expand_board.set_power("BL2",80)
+            power_expand_board.set_power("BL1",100)
+            power_expand_board.set_power("BL2",100)
 
         elif gamepad.is_key_pressed("Up"):
             lift(100)

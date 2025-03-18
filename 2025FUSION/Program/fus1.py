@@ -25,19 +25,17 @@ en = {
 }
 
 sv = {
-    "shooter" : smartservo_class("M1","INDEX1")
+    "shooter" : smartservo_class("M6","INDEX1")
 }
 
 """
 SYSTEM
 """
-def blush(a:int):
-    power_expand_board.set_power("BL1",a)
 
 def lift(a:int):
-    power_expand_board.set_power("DC7",a)
+    power_expand_board.set_power("DC3",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC7",-10)
+    power_expand_board.set_power("DC3",-10)
 
 def gripper(a:int):
     power_expand_board.set_power("DC8",a)
@@ -49,14 +47,14 @@ def feed(a:int,b:int):
     power_expand_board.set_power("DC2",-b)
 
 def stop_all():
-    power_expand_board.set_power("DC1")
-    power_expand_board.set_power("DC2")
-    power_expand_board.set_power("DC3")
-    power_expand_board.set_power("DC4")
-    power_expand_board.set_power("DC5")
-    power_expand_board.set_power("DC6")
-    power_expand_board.set_power("DC7")
-    power_expand_board.set_power("DC8")
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC2",0)
+    power_expand_board.set_power("DC3",0)
+    power_expand_board.set_power("DC4",0)
+    power_expand_board.set_power("DC5",0)
+    power_expand_board.set_power("DC6",0)
+    power_expand_board.set_power("DC7",0)
+    power_expand_board.set_power("DC8",0)
     en["FEED"].set_power(0)
 
 def shoot(a:int,b:int,c:int):
@@ -68,12 +66,12 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC2",0)
     en["FEED"].set_power(0)
 
-def shooting(a:int,b:int):
+def shooting(a:int):
     power_expand_board.set_power("BL1",a)
     power_expand_board.set_power("BL2",a)
 
 def shooter_angle(a:int):
-    sv["shooter"].move(a,50)
+    sv["shooter"].move_to(a,50)
 
 def red_servo():
     if sv["shooter"].get_value("current") > 1250:

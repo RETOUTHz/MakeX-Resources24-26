@@ -194,7 +194,7 @@ def stop_moving():
     en["LF"].set_power(0)
 
 def red_servo():
-    if sv["s6"].get_value("current") > 1250:
+    if sv["s6"].get_value("current") > 1350:
         sv["s6"].set_power(0)
 
 def gripper_a(a:int):
@@ -529,7 +529,7 @@ class manual():
             load(-100,-50,-100)
         
         elif gamepad.is_key_pressed("N4"):
-            sv["s6"].move_to(-75,50)
+            sv["s6"].move_to(-50,50)
         
         elif gamepad.is_key_pressed("R1"):
             blush(100,100)
@@ -545,7 +545,7 @@ class manual():
             feed(-100,-60,-100,-100)
         
         elif gamepad.is_key_pressed("≡"):
-            sv["s6"].move_to(-40,40)
+            sv["s6"].move_to(-55,40)
             power_expand_board.set_power("BL1",100)
             power_expand_board.set_power("BL2",100)
         

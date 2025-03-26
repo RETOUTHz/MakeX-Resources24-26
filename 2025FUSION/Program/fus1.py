@@ -28,6 +28,7 @@ sv = {
     "shooter" : smartservo_class("M6","INDEX1")
 }
 
+debug = led_matrix_class("PORT1","INDEX1")
 """
 SYSTEM
 """
@@ -195,6 +196,7 @@ class controller():
 MAIN
 """
 while True:
+    debug.show(sv["shooter"].get_value("angle"),wait = False)
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
             pass

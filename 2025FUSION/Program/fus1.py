@@ -84,6 +84,9 @@ def servo_move(angle):
     else:
         sv["shooter"].move_to(95, 50)
 
+def laser(a:int):
+    power_expand_board.set_power("DC7",a)
+
 
 """
 CONTROLLER
@@ -153,6 +156,11 @@ class controller():
         
         elif gamepad.is_key_pressed("N4"):
             shooting(68)
+
+        elif gamepad.is_key_pressed("L2"):
+            laser(50)
+
+
 
 
     def mode2():

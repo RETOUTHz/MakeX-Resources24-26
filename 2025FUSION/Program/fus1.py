@@ -94,7 +94,7 @@ CONTROLLER
 class movement:
     def control_movement_font():            
         rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx")) * 0.75
-        lb = (gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx")) * 0.75
+        lb = ((gamepad.get_joystick("Lx") * 0.8 ) + -gamepad.get_joystick("Rx")) * 0.75
         lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.75
         rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75
         en["RF"].set_power(-rf)

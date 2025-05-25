@@ -28,7 +28,7 @@ sv = {
     "shooter" : smartservo_class("M6","INDEX1")
 }
 
-debug = led_matrix_class("PORT1","INDEX1")
+debug = led_matrix_class("PORT5","INDEX1")
 """
 SYSTEM
 """
@@ -44,7 +44,7 @@ def gripper(a:int):
     power_expand_board.set_power("DC8",0)
 
 def feed(a:int,b:int):
-    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC8",a)
     power_expand_board.set_power("DC2",-b)
 
 def stop_all():
@@ -204,7 +204,7 @@ class controller():
 MAIN
 """
 while True:
-    debug.show(sv["shooter"].get_value("angle"),wait = False)
+    debug.show(en["LF"].get_value("speed"),wait = False)
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
             pass

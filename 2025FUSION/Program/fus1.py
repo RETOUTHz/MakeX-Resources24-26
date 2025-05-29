@@ -25,7 +25,7 @@ en = {
 }
 
 sv = {
-    "shooter" : smartservo_class("M6","INDEX1")
+    "shooter" : smartservo_class("M4","INDEX1")
 }
 
 debug = led_matrix_class("PORT5","INDEX1")
@@ -121,7 +121,9 @@ class controller():
         global open_feed
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
-            feed(50,100)
+            feed(100,100)
+            time.sleep(0.1)
+            feed(0,0)
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
@@ -143,10 +145,10 @@ class controller():
             shooting(0)
 
         elif gamepad.is_key_pressed("Up"):
-            shooter_angle(30)
+            shooter_angle(25)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(87)
+            shooter_angle(94)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -155,7 +157,7 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            shooting(68)
+            shooting(30)
 
         elif gamepad.is_key_pressed("L2"):
             laser(50)

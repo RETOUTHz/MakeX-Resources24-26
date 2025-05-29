@@ -59,11 +59,11 @@ def stop_all():
     en["FEED"].set_power(0)
 
 def shoot(a:int,b:int,c:int):
-    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC8",a)
     power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
     time.sleep(0.1)
-    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC8",0)
     power_expand_board.set_power("DC2",0)
     en["FEED"].set_power(0)
 
@@ -121,7 +121,7 @@ class controller():
         global open_feed
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
-            feed(100,100)
+            feed(50,100)
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()

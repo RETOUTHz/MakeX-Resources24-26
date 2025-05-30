@@ -60,7 +60,7 @@ SYSTEM
 def feed(a:int,b:int,c:int,d:int):
     debug.show("FEED",wait = False)
     power_expand_board.set_power("DC7",a)
-    power_expand_board.set_power("DC6",b)
+    power_expand_board.set_power("DC8",b)
     power_expand_board.set_power("DC2",c)
     power_expand_board.set_power("DC5",d)
 

@@ -62,10 +62,6 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC8",a)
     power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC8",0)
-    power_expand_board.set_power("DC2",0)
-    en["FEED"].set_power(0)
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -93,10 +89,10 @@ CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx")) * 0.75
-        lb = ((gamepad.get_joystick("Lx") * 0.8 ) + -gamepad.get_joystick("Rx")) * 0.75
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.75
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75
+        rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx")) * 0.7
+        lb = ((gamepad.get_joystick("Lx") * 0.8 ) + -gamepad.get_joystick("Rx")) * 0.7
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -131,9 +127,13 @@ class controller():
 
         elif gamepad.is_key_pressed("N2"):
             shoot(100,100,80)
+            time.sleep(0.1)
+            shoot(0,0,0)
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-100,-100,-100)
+            time.sleep(0.1)
+            shoot(0,0,0)
         
         elif gamepad.is_key_pressed("R1"):
             shooting(89)

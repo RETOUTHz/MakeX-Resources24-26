@@ -122,18 +122,15 @@ class controller():
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
             feed(100,100)
-            time.sleep(0.1)
-            feed(0,0)
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
-            shooter_angle(50)
 
         elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)
 
         elif gamepad.is_key_pressed("N2"):
-            shoot(100,100,100)
+            shoot(100,100,80)
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-100,-100,-100)
@@ -157,7 +154,7 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            shooting(30)
+            shooting(20)
 
         elif gamepad.is_key_pressed("L2"):
             laser(50)
@@ -206,7 +203,7 @@ class controller():
 MAIN
 """
 while True:
-    debug.show(en["LF"].get_value("speed"),wait = False)
+    debug.show(en["FEED"].get_value("speed"),wait = False)
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
             pass

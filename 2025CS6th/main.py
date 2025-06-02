@@ -25,7 +25,7 @@ en = {
 }
 
 sv = {
-    "s6" : smartservo_class("M2","INDEX1")
+    "s6" : smartservo_class("M1","INDEX1")
 }
 """
 AUTO SECLET
@@ -539,15 +539,15 @@ class manual():
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
-            sv["s6"].move_to(-90,50)
+            sv["s6"].move_to(-80,50)
         
         elif gamepad.is_key_pressed("L2"):
             feed(-100,-60,-100,-100)
         
         elif gamepad.is_key_pressed("≡"):
-            sv["s6"].move_to(-55,40)
-            power_expand_board.set_power("BL1",100)
-            power_expand_board.set_power("BL2",100)
+            sv["s6"].move_to(-60,40)
+            power_expand_board.set_power("BL1",80)
+            power_expand_board.set_power("BL2",80)
         
         elif gamepad.is_key_pressed("+"):
             sv["s6"].move_to(-100,50)

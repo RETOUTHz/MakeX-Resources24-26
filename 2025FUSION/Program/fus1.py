@@ -21,7 +21,7 @@ en = {
     "LB": encoder_motor_class("M2", "INDEX1"), #Left_Back wheel
     "RF": encoder_motor_class("M1", "INDEX1"), #Right_Front wheel 
     "RB": encoder_motor_class("M5", "INDEX1"),  #Right_Back wheel
-    "FEED": encoder_motor_class("M4", "INDEX1")
+    "FEED": encoder_motor_class("M3", "INDEX1")
 }
 
 sv = {
@@ -62,6 +62,9 @@ def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC8",a)
     power_expand_board.set_power("DC2",-b)
     en["FEED"].set_power(c)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC8",0)
+    power_expand_board.set_power("DC2",0)
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -89,10 +92,10 @@ CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx")) * 0.7
-        lb = ((gamepad.get_joystick("Lx") * 0.8 ) + -gamepad.get_joystick("Rx")) * 0.7
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.7) + math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.7) - math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7 - math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7 + math.fabs((gamepad.get_joystick("Lx") * 0.05))
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -126,17 +129,13 @@ class controller():
             shoot(0,0,-50)
 
         elif gamepad.is_key_pressed("N2"):
-            shoot(100,100,80)
-            time.sleep(0.1)
-            shoot(0,0,0)
+            shoot(70,70,70)
 
         elif gamepad.is_key_pressed("N3"):
-            shoot(-100,-100,-100)
-            time.sleep(0.1)
-            shoot(0,0,0)
+            shoot(-50,-50,-50)
         
         elif gamepad.is_key_pressed("R1"):
-            shooting(89)
+            shooting(80)
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)
@@ -145,7 +144,7 @@ class controller():
             shooter_angle(25)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(94)
+            shooter_angle(87)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -154,13 +153,13 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            shooting(20)
+            shooting(70)
 
         elif gamepad.is_key_pressed("L2"):
             laser(50)
 
-
-
+        else:
+            en["FEED"].set_power(0)
 
     def mode2():
         movement.control_movement_right()
@@ -203,7 +202,7 @@ class controller():
 MAIN
 """
 while True:
-    debug.show(en["FEED"].get_value("speed"),wait = False)
+    debug.show(sv["shooter"].get_value("angle"),wait = False)
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
             pass

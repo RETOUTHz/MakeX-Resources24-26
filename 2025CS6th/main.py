@@ -539,18 +539,18 @@ class manual():
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
-            sv["s6"].move_to(-80,50)
+            sv["s6"].move_to(-69,50)
         
         elif gamepad.is_key_pressed("L2"):
             feed(-100,-60,-100,-100)
         
         elif gamepad.is_key_pressed("≡"):
-            sv["s6"].move_to(-60,40)
+            sv["s6"].move_to(-63,40)
             power_expand_board.set_power("BL1",80)
             power_expand_board.set_power("BL2",80)
         
         elif gamepad.is_key_pressed("+"):
-            sv["s6"].move_to(-100,50)
+            sv["s6"].move_to(-96,50)
             power_expand_board.set_power("BL1",100)
             power_expand_board.set_power("BL2",100)
 

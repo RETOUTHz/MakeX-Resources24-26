@@ -92,10 +92,10 @@ CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.7) + math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.7) - math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7 - math.fabs((gamepad.get_joystick("Lx") * 0.05))
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7 + math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.7) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.7) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -125,6 +125,9 @@ class controller():
         elif gamepad.is_key_pressed("L1"):
             stop_all()
 
+        elif gamepad.is_key_pressed("L2"):
+            shooter_angle(57)
+
         elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)
 
@@ -144,7 +147,7 @@ class controller():
             shooter_angle(25)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(87)
+            shooter_angle(86)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -153,7 +156,7 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            shooting(70)
+            shooting(60)
 
         elif gamepad.is_key_pressed("L2"):
             laser(50)

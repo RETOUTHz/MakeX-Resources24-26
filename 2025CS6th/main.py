@@ -523,7 +523,7 @@ class manual():
             feed(100,100,0,0)
 
         elif gamepad.is_key_pressed("N2"):
-            load(100,100,100)
+            load(85,100,100)
         
         elif gamepad.is_key_pressed("N3"):
             load(-100,-100,-100)
@@ -546,8 +546,8 @@ class manual():
         
         elif gamepad.is_key_pressed("≡"):
             sv["s6"].move_to(-63,40)
-            power_expand_board.set_power("BL1",80)
-            power_expand_board.set_power("BL2",80)
+            power_expand_board.set_power("BL1",75)
+            power_expand_board.set_power("BL2",75)
         
         elif gamepad.is_key_pressed("+"):
             sv["s6"].move_to(-96,50)

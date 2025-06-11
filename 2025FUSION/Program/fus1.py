@@ -127,7 +127,7 @@ class controller():
 
         elif gamepad.is_key_pressed("L2"):
             shooter_angle(100)
-            shooting(10)
+            shooting(20)
 
         elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)

@@ -34,14 +34,14 @@ SYSTEM
 """
 
 def lift(a:int):
-    power_expand_board.set_power("DC3",a)
+    power_expand_board.set_power("DC1",-a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC3",-10)
+    power_expand_board.set_power("DC1",10)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC8",a)
+    power_expand_board.set_power("DC3",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC8",0)
+    power_expand_board.set_power("DC3",0)
 
 def feed(a:int,b:int):
     power_expand_board.set_power("DC8",a)
@@ -170,24 +170,10 @@ class controller():
             lift(100)
 
         elif gamepad.is_key_pressed("N4"):
-            gripper(100)
-
-        elif gamepad.is_key_pressed("N1"):
             gripper(-100)
 
-        elif gamepad.is_key_pressed("N2"):
-            power_expand_board.set_power("DC7",-100)
-            power_expand_board.set_power("DC8",50)
-            time.sleep(0.1)
-            power_expand_board.set_power("DC7",-10)
-            power_expand_board.set_power("DC8",50)
-
-        elif gamepad.is_key_pressed("N3"):
-            power_expand_board.set_power("DC7",100)
-            power_expand_board.set_power("DC8",100)
-            time.sleep(0.1)
-            power_expand_board.set_power("DC7",-10)
-            power_expand_board.set_power("DC8",100)
+        elif gamepad.is_key_pressed("N1"):
+            gripper(100)
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()

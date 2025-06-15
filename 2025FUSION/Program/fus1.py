@@ -41,7 +41,7 @@ def lift(a:int):
 def gripper(a:int):
     power_expand_board.set_power("DC3",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC3",0)
+    power_expand_board.set_power("DC3",-50)
 
 def feed(a:int,b:int):
     power_expand_board.set_power("DC8",a)
@@ -167,7 +167,7 @@ class controller():
             lift(-100)
 
         elif gamepad.is_key_pressed("Down"):
-            lift(100)
+            lift(50)
 
         elif gamepad.is_key_pressed("N4"):
             gripper(-100)
@@ -175,8 +175,23 @@ class controller():
         elif gamepad.is_key_pressed("N1"):
             gripper(100)
 
+        elif gamepad.is_key_pressed("Left"):
+            gripper(100)
+
+        elif gamepad.is_key_pressed("Right"):
+            gripper(-100)
+
         elif gamepad.is_key_pressed("L1"):
             stop_all()
+        
+        elif gamepad.is_key_pressed("R2"):
+            power_expand_board.set_power("DC3",0)
+
+        elif gamepad.is_key_pressed("N2"):
+            lift(-100)
+
+        elif gamepad.is_key_pressed("N3"):
+            lift(50)
 
     def change_mode():
         if gamepad.is_key_pressed("+"):
@@ -188,15 +203,17 @@ class controller():
 MAIN
 """
 while True:
-    debug.show(sv["shooter"].get_value("angle"),wait = False)
+    #debug.show_image("ff828c8c80ff008383ff00ffc90101ff")
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
             pass
     else:
         controller.change_mode()
         if controller.mode == "1":
+            debug.show(sv["shooter"].get_value("angle"),wait = False)
             controller.mode1()
             red_servo()
         else:
+            debug.show_image("ffffffffffffffffffffffffffffffff")
             controller.mode2()
             red_servo()

@@ -29,14 +29,13 @@ sv = {
 }
 
 debug = led_matrix_class("PORT5","INDEX1")
+
 """
 AUTO SECLET
-จะใช้autoตัวไหน #comment ออก
 """
 def select():
-    Auto.Left_block_auto()
-    #Auto.Right_block_auto()
-    #Auto.Emergency()
+    Right()
+    Left()
 """
 SYSTEM
 """
@@ -91,9 +90,41 @@ def servo_move(angle):
     else:
         sv["shooter"].move_to(95, 50)
 
-def laser(a:int):
-    power_expand_board.set_power("DC7",a)
+def move_forward(a:int):
+        en["RF"].set_speed(a)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(a)
+        en["LF"].set_speed(0)
 
+def move_backward(a:int):
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(-a)
+        en["LF"].set_speed(0)
+
+def move_around(a:int):
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(-a)
+        en["LB"].set_speed(a)
+        en["LF"].set_speed(a)
+
+def slide_left(a:int):
+        en["RF"].set_speed(0)
+        en["RB"].set_speed(a)
+        en["LB"].set_speed(0)
+        en["LF"].set_speed(a)
+
+def slide_right(a:int):
+        en["RF"].set_speed(0)
+        en["RB"].set_speed(-a)
+        en["LB"].set_speed(0)
+        en["LF"].set_speed(-a)
+
+def stop_moving(a:int):
+        en["RF"].set_speed(0)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(0)
+        en["LF"].set_speed(0)
 
 """
 CONTROLLER
@@ -209,7 +240,12 @@ class controller():
 """
 AUTO
 """
-
+def Right():
+    move_backward(50)
+    time.sleep(0.5)
+    slide_right(50)
+    time.sleep(0.5)
+    stop_moving()
 """
 MAIN
 """
@@ -217,7 +253,7 @@ while True:
     #debug.show_image("ff828c8c80ff008383ff00ffc90101ff")
     if power_manage_module.is_auto_mode():
         while not not power_manage_module.is_auto_mode():
-            pass
+            select()
     else:
         controller.change_mode()
         if controller.mode == "1":

@@ -246,6 +246,19 @@ def Right():
     slide_right(50)
     time.sleep(0.5)
     stop_moving()
+    move_forward(50)
+    time.sleep(0.5)
+    stop_moving() #set0
+
+def Left():
+    move_forward(50)
+    time.sleep(0.5)
+    slide_right(50)
+    time.sleep(0.5)
+    stop_moving()
+    move_backward(50)
+    time.sleep(0.5)
+    stop_moving() #set0
 """
 MAIN
 """

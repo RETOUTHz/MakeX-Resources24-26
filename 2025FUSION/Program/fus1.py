@@ -35,7 +35,7 @@ AUTO SECLET
 """
 def select():
     Right()
-    Left()
+    #Left()
 """
 SYSTEM
 """
@@ -109,18 +109,18 @@ def move_around(a:int):
         en["LF"].set_speed(0)
 
 def slide_left(a:int):
-        en["RF"].set_speed(-a)
-        en["RB"].set_speed(0)
-        en["LB"].set_speed(a)
-        en["LF"].set_speed(0)
-
-def slide_right(a:int):
         en["RF"].set_speed(a)
         en["RB"].set_speed(0)
         en["LB"].set_speed(-a)
         en["LF"].set_speed(0)
 
-def stop_moving(a:int):
+def slide_right(a:int):
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(a)
+        en["LF"].set_speed(0)
+
+def stop_moving():
         en["RF"].set_speed(0)
         en["RB"].set_speed(0)
         en["LB"].set_speed(0)
@@ -244,16 +244,19 @@ def Right():
     move_backward(50)
     time.sleep(0.5)
     slide_right(50)
-    time.sleep(0.5)
+    time.sleep(0.7)
     stop_moving()
     move_forward(50)
     time.sleep(0.5)
     stop_moving() #set0
+    slide_left(200)
+    time.sleep(2) # block phase 1
+    stop_moving()
 
 def Left():
     move_forward(50)
     time.sleep(0.5)
-    slide_right(50)
+    slide_left(50)
     time.sleep(0.5)
     stop_moving()
     move_backward(50)
@@ -265,8 +268,9 @@ MAIN
 while True:
     #debug.show_image("ff828c8c80ff008383ff00ffc90101ff")
     if power_manage_module.is_auto_mode():
+        select()
         while not not power_manage_module.is_auto_mode():
-            select()
+            pass
     else:
         controller.change_mode()
         if controller.mode == "1":

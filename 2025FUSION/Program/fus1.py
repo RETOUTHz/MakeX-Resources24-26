@@ -91,34 +91,34 @@ def servo_move(angle):
         sv["shooter"].move_to(95, 50)
 
 def move_forward(a:int):
-        en["RF"].set_speed(a)
-        en["RB"].set_speed(0)
-        en["LB"].set_speed(a)
-        en["LF"].set_speed(0)
+        en["RF"].set_speed(0)
+        en["RB"].set_speed(-a)
+        en["LB"].set_speed(0)
+        en["LF"].set_speed(a)
 
 def move_backward(a:int):
-        en["RF"].set_speed(-a)
+        en["RF"].set_speed(0)
+        en["RB"].set_speed(a)
+        en["LB"].set_speed(0)
+        en["LF"].set_speed(-a)
+
+def move_around(a:int):
+        en["RF"].set_speed(a)
         en["RB"].set_speed(0)
         en["LB"].set_speed(-a)
         en["LF"].set_speed(0)
 
-def move_around(a:int):
-        en["RF"].set_speed(-a)
-        en["RB"].set_speed(-a)
-        en["LB"].set_speed(a)
-        en["LF"].set_speed(a)
-
 def slide_left(a:int):
-        en["RF"].set_speed(0)
-        en["RB"].set_speed(a)
-        en["LB"].set_speed(0)
-        en["LF"].set_speed(a)
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(a)
+        en["LF"].set_speed(0)
 
 def slide_right(a:int):
-        en["RF"].set_speed(0)
-        en["RB"].set_speed(-a)
-        en["LB"].set_speed(0)
-        en["LF"].set_speed(-a)
+        en["RF"].set_speed(a)
+        en["RB"].set_speed(0)
+        en["LB"].set_speed(-a)
+        en["LF"].set_speed(0)
 
 def stop_moving(a:int):
         en["RF"].set_speed(0)

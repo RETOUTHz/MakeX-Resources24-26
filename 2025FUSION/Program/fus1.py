@@ -29,6 +29,8 @@ sv = {
 }
 
 debug = led_matrix_class("PORT5","INDEX1")
+lk = ranging_sensor_class("PORT4", "INDEX2")
+rk = ranging_sensor_class("PORT4", "INDEX1")
 
 """
 AUTO SECLET
@@ -133,8 +135,8 @@ class movement:
     def control_movement_font():            
         rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.8) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
         lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.8) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.7 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.7 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.8 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -165,7 +167,8 @@ class controller():
             stop_all()
 
         elif gamepad.is_key_pressed("L2"):
-            shooting(47)
+            shooter_angle(84)
+            shooting(70)
 
         elif gamepad.is_key_pressed("L_Thumb"):
             shoot(0,0,-50)
@@ -186,7 +189,7 @@ class controller():
             shooter_angle(25)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(84)
+            shooter_angle(82)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -241,16 +244,15 @@ class controller():
 AUTO
 """
 def Right():
-    move_backward(50)
-    time.sleep(0.5)
-    slide_right(50)
-    time.sleep(0.7)
-    stop_moving()
+    power_expand_board.set_power("DC1",100)
+    time.sleep(1)
+    power_expand_board.set_power("DC1",10)
     move_forward(50)
     time.sleep(0.5)
-    stop_moving() #set0
-    slide_left(200)
-    time.sleep(2) # block phase 1
+    stop_moving()
+    while rk.get_distance() <= 150:
+        debug.show(rk.get_distance(), wait=False)
+        slide_left(200)
     stop_moving()
 
 def Left():

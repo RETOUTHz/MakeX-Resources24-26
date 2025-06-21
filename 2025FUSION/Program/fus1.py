@@ -263,6 +263,9 @@ def Left():
     stop_moving()
     move_backward(50)
     time.sleep(0.5)
+    while lk.get_distance() <= 150:
+        debug.show(lk.get_distance(), wait=False)
+        slide_right(200)
     stop_moving() #set0
 """
 MAIN

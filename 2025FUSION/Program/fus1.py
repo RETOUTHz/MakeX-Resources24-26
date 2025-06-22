@@ -113,13 +113,13 @@ def move_around(a:int):
 def slide_left(a:int):
         en["RF"].set_speed(a)
         en["RB"].set_speed(0)
-        en["LB"].set_speed(-a)
+        en["LB"].set_speed(-a*1.3)
         en["LF"].set_speed(0)
 
 def slide_right(a:int):
         en["RF"].set_speed(-a)
         en["RB"].set_speed(0)
-        en["LB"].set_speed(a)
+        en["LB"].set_speed(a*1.6)
         en["LF"].set_speed(0)
 
 def stop_moving():
@@ -245,15 +245,51 @@ AUTO
 """
 def Right():
     power_expand_board.set_power("DC1",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC1",10)
-    move_forward(50)
-    time.sleep(0.5)
+    time.sleep(1.1)
+    power_expand_board.set_power("DC1",10) #lift up phase 1
+    move_forward(100)
+    time.sleep(0.7)
     stop_moving()
-    while rk.get_distance() <= 150:
+    slide_right(200)
+    time.sleep(1)
+    stop_moving() #set 0 phase 1
+    while rk.get_distance() <= 135:
         debug.show(rk.get_distance(), wait=False)
         slide_left(200)
     stop_moving()
+    move_backward(75)
+    time.sleep(2)
+    stop_moving() # set 0 phase 1
+    while rk.get_distance() <= 175:
+        debug.show(rk.get_distance(), wait=False)
+        slide_left(100)
+    stop_moving()
+    time.sleep(1)
+    power_expand_board.set_power("DC3",-100)
+    slide_right(200)
+    time.sleep(1)
+    stop_moving()
+    power_expand_board.set_power("DC3",100)
+    time.sleep(1)
+    power_expand_board.set_power("DC3",0) # gripper phsae 1
+    move_backward(100)
+    time.sleep(1)
+    stop_moving() 
+    move_forward(75)
+    time.sleep(1.5)
+    stop_moving() #set 0 phase 2
+    while rk.get_distance() <= 175:
+        debug.show(rk.get_distance(), wait=False)
+        slide_left(100)
+    stop_moving()
+    time.sleep(1)
+    power_expand_board.set_power("DC3",-100)
+    slide_right(200)
+    time.sleep(1)
+    stop_moving()
+    power_expand_board.set_power("DC3",100)
+    time.sleep(1)
+    power_expand_board.set_power("DC3",0) # gripper phase 2
 
 def Left():
     move_forward(50)
@@ -262,10 +298,10 @@ def Left():
     time.sleep(0.5)
     stop_moving()
     move_backward(50)
-    time.sleep(0.5)
+    time.sleep(0.6)
     while lk.get_distance() <= 150:
         debug.show(lk.get_distance(), wait=False)
-        slide_right(200)
+        slide_right(100)
     stop_moving() #set0
 """
 MAIN

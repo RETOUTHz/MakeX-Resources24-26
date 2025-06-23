@@ -36,8 +36,8 @@ rk = ranging_sensor_class("PORT4", "INDEX1")
 AUTO SECLET
 """
 def select():
-    Right()
-    #Left()
+    #Right()
+    Left()
 """
 SYSTEM
 """

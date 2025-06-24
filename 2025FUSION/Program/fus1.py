@@ -29,8 +29,8 @@ sv = {
 }
 
 debug = led_matrix_class("PORT5","INDEX1")
-lk = ranging_sensor_class("PORT4", "INDEX2")
-rk = ranging_sensor_class("PORT4", "INDEX1")
+rk = ranging_sensor_class("PORT4", "INDEX2")
+lk = ranging_sensor_class("PORT4", "INDEX1")
 
 """
 AUTO SECLET
@@ -253,15 +253,15 @@ def Right():
     slide_right(200)
     time.sleep(1)
     stop_moving() #set 0 phase 1
-    while rk.get_distance() <= 135:
-        debug.show(rk.get_distance(), wait=False)
+    while lk.get_distance() <= 135:
+        debug.show(lk.get_distance(), wait=False)
         slide_left(200)
     stop_moving()
     move_backward(75)
     time.sleep(2)
     stop_moving() # set 0 phase 1
-    while rk.get_distance() <= 175:
-        debug.show(rk.get_distance(), wait=False)
+    while lk.get_distance() <= 175:
+        debug.show(lk.get_distance(), wait=False)
         slide_left(100)
     stop_moving()
     time.sleep(1)
@@ -278,8 +278,8 @@ def Right():
     move_forward(75)
     time.sleep(1.5)
     stop_moving() #set 0 phase 2
-    while rk.get_distance() <= 175:
-        debug.show(rk.get_distance(), wait=False)
+    while lk.get_distance() <= 175:
+        debug.show(lk.get_distance(), wait=False)
         slide_left(100)
     stop_moving()
     time.sleep(1)
@@ -298,46 +298,46 @@ def Left():
     move_backward(100)
     time.sleep(0.7)
     stop_moving()
-    slide_left(200)
+    slide_right(200)
     time.sleep(1)
     stop_moving() #set 0 phase 1
     while lk.get_distance() <= 135:
         debug.show(lk.get_distance(), wait=False)
-        slide_right(200)
+        slide_left(200)
     stop_moving()
-    move_forward(75)
-    time.sleep(2)
-    stop_moving() # set 0 phase 1
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_right(100)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_left(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phsae 1
-    move_forward(100)
-    time.sleep(1)
-    stop_moving() 
-    move_backward(75)
-    time.sleep(1.5)
-    stop_moving() #set 0 phase 2
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_right(100)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_left(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phase 2
+    # move_forward(75)
+    # time.sleep(2)
+    # stop_moving() # set 0 phase 1
+    # while lk.get_distance() <= 175:
+    #     debug.show(lk.get_distance(), wait=False)
+    #     slide_right(100)
+    # stop_moving()
+    # time.sleep(1)
+    # power_expand_board.set_power("DC3",-100)
+    # slide_left(200)
+    # time.sleep(1)
+    # stop_moving()
+    # power_expand_board.set_power("DC3",100)
+    # time.sleep(1)
+    # power_expand_board.set_power("DC3",0) # gripper phsae 1
+    # move_forward(100)
+    # time.sleep(1)
+    # stop_moving() 
+    # move_backward(75)
+    # time.sleep(1.5)
+    # stop_moving() #set 0 phase 2
+    # while lk.get_distance() <= 175:
+    #     debug.show(lk.get_distance(), wait=False)
+    #     slide_right(100)
+    # stop_moving()
+    # time.sleep(1)
+    # power_expand_board.set_power("DC3",-100)
+    # slide_left(200)
+    # time.sleep(1)
+    # stop_moving()
+    # power_expand_board.set_power("DC3",100)
+    # time.sleep(1)
+    # power_expand_board.set_power("DC3",0) # gripper phase 2
 """
 MAIN
 """

@@ -105,10 +105,10 @@ def move_backward(a:int):
         en["LF"].set_speed(-a)
 
 def move_around(a:int):
-        en["RF"].set_speed(a)
-        en["RB"].set_speed(0)
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(a)
         en["LB"].set_speed(-a)
-        en["LF"].set_speed(0)
+        en["LF"].set_speed(a)
 
 def slide_left(a:int):
         en["RF"].set_speed(a)
@@ -245,17 +245,20 @@ AUTO
 """
 def Right():
     power_expand_board.set_power("DC1",100)
-    time.sleep(1.1)
+    time.sleep(1.05)
     power_expand_board.set_power("DC1",10) #lift up phase 1
-    move_forward(100)
-    time.sleep(0.5)
-    stop_moving()
+    # move_forward(100)
+    # time.sleep(0.5)
+    # stop_moving()
     slide_right(200)
     time.sleep(1)
     stop_moving() #set 0 phase 1
-    while lk.get_distance() <= 135:
+    while lk.get_distance() <= 130:
         debug.show(lk.get_distance(), wait=False)
         slide_left(200)
+    stop_moving()
+    move_around(-100)
+    time.sleep(1)
     stop_moving()
     move_backward(75)
     time.sleep(2)
@@ -276,7 +279,7 @@ def Right():
     time.sleep(1)
     stop_moving() 
     move_forward(75)
-    time.sleep(1.5)
+    time.sleep(1.6)
     stop_moving() #set 0 phase 2
     while lk.get_distance() <= 175:
         debug.show(lk.get_distance(), wait=False)

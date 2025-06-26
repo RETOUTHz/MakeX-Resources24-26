@@ -247,9 +247,6 @@ def Right():
     power_expand_board.set_power("DC1",100)
     time.sleep(1.05)
     power_expand_board.set_power("DC1",10) #lift up phase 1
-    # move_forward(100)
-    # time.sleep(0.5)
-    # stop_moving()
     slide_right(200)
     time.sleep(1)
     stop_moving() #set 0 phase 1
@@ -258,10 +255,10 @@ def Right():
         slide_left(200)
     stop_moving()
     move_around(-100)
-    time.sleep(1)
+    time.sleep(0.7)
     stop_moving()
     move_backward(75)
-    time.sleep(2)
+    time.sleep(2.5)
     stop_moving() # set 0 phase 1
     while lk.get_distance() <= 175:
         debug.show(lk.get_distance(), wait=False)
@@ -275,6 +272,9 @@ def Right():
     power_expand_board.set_power("DC3",100)
     time.sleep(1)
     power_expand_board.set_power("DC3",0) # gripper phsae 1
+    move_around(-100)
+    time.sleep(0.7)
+    stop_moving()
     move_backward(100)
     time.sleep(1)
     stop_moving() 

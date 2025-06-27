@@ -105,7 +105,7 @@ def move_backward(a:int):
         en["LF"].set_speed(-a)
 
 def move_around(a:int):
-        en["RF"].set_speed(-a)
+        en["RF"].set_speed(a)
         en["RB"].set_speed(a)
         en["LB"].set_speed(-a)
         en["LF"].set_speed(a)
@@ -237,9 +237,9 @@ class controller():
 
     def change_mode():
         if gamepad.is_key_pressed("+"):
-            controller.mode = "1"
-        elif gamepad.is_key_pressed("≡"):
             controller.mode = "2"
+        elif gamepad.is_key_pressed("≡"):
+            controller.mode = "1"
 """
 AUTO
 """
@@ -254,8 +254,8 @@ def Right():
         debug.show(lk.get_distance(), wait=False)
         slide_left(200)
     stop_moving()
-    move_around(-100)
-    time.sleep(0.7)
+    move_around(100)
+    time.sleep(0.8)
     stop_moving()
     move_backward(75)
     time.sleep(2.5)
@@ -272,9 +272,6 @@ def Right():
     power_expand_board.set_power("DC3",100)
     time.sleep(1)
     power_expand_board.set_power("DC3",0) # gripper phsae 1
-    move_around(-100)
-    time.sleep(0.7)
-    stop_moving()
     move_backward(100)
     time.sleep(1)
     stop_moving() 

@@ -353,10 +353,10 @@ while True:
     else:
         controller.change_mode()
         if controller.mode == "1":
-            debug.show(sv["shooter"].get_value("angle"),wait = False)
-            controller.mode1()
-            red_servo()
-        else:
             debug.show_image("ffffffffffffffffffffffffffffffff")
             controller.mode2()
+            red_servo()
+        else:
+            debug.show(sv["shooter"].get_value("angle"),wait = False)
+            controller.mode1()
             red_servo()

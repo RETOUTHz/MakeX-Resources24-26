@@ -180,7 +180,7 @@ class controller():
             shoot(-90,-90,-90)
         
         elif gamepad.is_key_pressed("R1"):
-            shooting(80)
+            shooting(85)
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)
@@ -189,7 +189,7 @@ class controller():
             shooter_angle(25)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(82)
+            shooter_angle(80)
         
         elif gamepad.is_key_pressed("Right"):
             servo_move(-3)
@@ -198,7 +198,7 @@ class controller():
             servo_move(3)
         
         elif gamepad.is_key_pressed("N4"):
-            shooting(43)
+            shooting(45)
 
         else:
             en["FEED"].set_power(0)
@@ -255,10 +255,13 @@ def Right():
         slide_left(200)
     stop_moving()
     move_around(100)
-    time.sleep(0.8)
+    time.sleep(0.5)
     stop_moving()
     move_backward(75)
     time.sleep(2.5)
+    stop_moving() # set 0 phase 1
+    move_forward(75)
+    time.sleep(0.2)
     stop_moving() # set 0 phase 1
     while lk.get_distance() <= 175:
         debug.show(lk.get_distance(), wait=False)
@@ -272,15 +275,18 @@ def Right():
     power_expand_board.set_power("DC3",100)
     time.sleep(1)
     power_expand_board.set_power("DC3",0) # gripper phsae 1
+    move_around(100)
+    time.sleep(0.2)
+    stop_moving()
     move_backward(100)
     time.sleep(1)
     stop_moving() 
     move_forward(75)
-    time.sleep(1.6)
+    time.sleep(1.4)
     stop_moving() #set 0 phase 2
     while lk.get_distance() <= 175:
         debug.show(lk.get_distance(), wait=False)
-        slide_left(100)
+        slide_left(75)
     stop_moving()
     time.sleep(1)
     power_expand_board.set_power("DC3",-100)

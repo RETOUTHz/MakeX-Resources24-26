@@ -45,7 +45,7 @@ SYSTEM
 def lift(a:int):
     power_expand_board.set_power("DC1",-a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC1",10)
+    power_expand_board.set_power("DC1",15)
 
 def gripper(a:int,b:int):
     power_expand_board.set_power("DC3",a)

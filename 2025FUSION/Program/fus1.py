@@ -128,13 +128,16 @@ def stop_moving():
         en["LB"].set_speed(0)
         en["LF"].set_speed(0)
 
+def box(a:int):
+    power_expand_board.set_power(DC7,a)
+
 """
 CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.8) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.8) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.85) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
         lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.8 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
         rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         en["RF"].set_power(-rf)
@@ -143,8 +146,8 @@ class movement:
         en["LF"].set_power(lf)
     
     def control_movement_right():
-        rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.75
-        lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.75
+        rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
+        lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
         lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.75
         rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.75
         en["RF"].set_power(rf)

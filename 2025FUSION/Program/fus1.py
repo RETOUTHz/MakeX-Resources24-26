@@ -29,15 +29,16 @@ sv = {
 }
 
 debug = led_matrix_class("PORT5","INDEX1")
-rk = ranging_sensor_class("PORT4", "INDEX2")
-lk = ranging_sensor_class("PORT4", "INDEX1")
+bk = ranging_sensor_class("PORT5", "INDEX2")
+lk = ranging_sensor_class("PORT5", "INDEX1")
 
 """
 AUTO SECLET
 """
 def select():
-    Right()
+    #Right()
     #Left()
+    block_right()
 """
 SYSTEM
 """
@@ -137,7 +138,7 @@ CONTROLLER
 class movement:
     def control_movement_font():            
         rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.85) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.9) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
         lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.8 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
         rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         # if math.fabs(gamepad.get_joystick("Rx")) > 10:
@@ -363,6 +364,19 @@ def Left():
     power_expand_board.set_power("DC3",100)
     time.sleep(1)
     power_expand_board.set_power("DC3",0) # gripper phase 2
+
+def block_right():
+    box(100)
+    slide_right(75)
+    time.sleep(0.2)
+    stop_moving()
+    while bk.get_distance() <= 173:
+        debug.show(lk.get_distance(), wait=False)
+        move_forward(300)
+    stop_moving()
+    slide_right(150)
+    time.sleep(2)
+    stop_moving() 
 """
 MAIN
 """

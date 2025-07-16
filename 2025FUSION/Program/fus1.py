@@ -88,10 +88,7 @@ def red_servo():
         sv["shooter"].set_power(0)
 
 def servo_move(angle):
-    if sv["shooter"].get_value("angle") < 105:
-        sv["shooter"].move(angle, 50)
-    else:
-        sv["shooter"].move_to(95, 50)
+        sv["shooter"].move_to(angle, 50)
 
 def move_forward(a:int):
         en["RF"].set_speed(0)
@@ -184,7 +181,10 @@ class controller():
             shooting(90)
 
         elif gamepad.is_key_pressed("L_Thumb"):
-            shoot(0,0,-50)
+            servo_move(5)
+
+        elif gamepad.is_key_pressed("L_Thumb"):
+            servo_move(-5)
 
         elif gamepad.is_key_pressed("N2"):
             shoot(90,90,90)
@@ -206,10 +206,10 @@ class controller():
             shooter_angle(80)
         
         elif gamepad.is_key_pressed("Right"):
-            servo_move(-3)
+            shooter_angle(76)
 
         elif gamepad.is_key_pressed("Left"):
-            servo_move(3)
+            shooter_angle(93)
         
         elif gamepad.is_key_pressed("N4"):
             shooting(45)

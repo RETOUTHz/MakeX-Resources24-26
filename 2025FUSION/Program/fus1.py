@@ -134,10 +134,10 @@ CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.9) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.8) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.8) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
         lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.8 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.75 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.8 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         # if math.fabs(gamepad.get_joystick("Rx")) > 10:
         #     power_expand_board.set_power("DC6", -gamepad.get_joystick("Rx") * 100)
         # else:

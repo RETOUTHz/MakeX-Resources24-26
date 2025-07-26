@@ -368,15 +368,17 @@ def Left():
 def block_right():
     box(100)
     slide_right(100)
-    time.sleep(0.2)
+    time.sleep(0.4)
     stop_moving()
-    while bk.get_distance() <= 173:
+    while bk.get_distance() <= 160:
         debug.show(lk.get_distance(), wait=False)
         move_forward(300)
     stop_moving()
     slide_right(150)
     time.sleep(2)
-    stop_moving() 
+    stop_moving()
+    time.sleep(10)
+    stop_all() 
 """
 MAIN
 """

@@ -36,9 +36,10 @@ lk = ranging_sensor_class("PORT5", "INDEX1")
 AUTO SECLET
 """
 def select():
-    #Right()
-    #Left()
-    block_right()
+    if lk.get_distance() > 100:
+        block_right()
+    else:
+        block_left()
 """
 SYSTEM
 """
@@ -116,9 +117,9 @@ def slide_left(a:int):
 
 def slide_right(a:int):
         en["RF"].set_speed(-a)
-        en["RB"].set_speed(0)
+        en["RB"].set_speed(-a*0.4)
         en["LB"].set_speed(a*1.6)
-        en["LF"].set_speed(0)
+        en["LF"].set_speed(a*0.2)
 
 def stop_moving():
         en["RF"].set_speed(0)
@@ -366,19 +367,38 @@ def Left():
     power_expand_board.set_power("DC3",0) # gripper phase 2
 
 def block_right():
-    box(100)
-    slide_right(100)
-    time.sleep(0.4)
+    move_around(-40)
+    time.sleep(0.1)
     stop_moving()
-    while bk.get_distance() <= 160:
-        debug.show(lk.get_distance(), wait=False)
+    while bk.get_distance() <= 161:
+        box(100)
+        debug.show(bk.get_distance(), wait=False)
         move_forward(300)
     stop_moving()
+    time.sleep(1)
     slide_right(150)
+    time.sleep(1)
+    stop_moving()
+    move_around(-100)
+    time.sleep(0.5)
+    stop_moving()
+    move_around(100)
+    time.sleep(0.5)
+    stop_moving()
+    time.sleep(5)
+    stop_all() 
+
+def block_left():
+    while bk.get_distance() <= 160:
+        box(100)
+        debug.show(bk.get_distance(), wait=False)
+        move_forward(300)
+    stop_moving()
+    slide_left(100)
     time.sleep(2)
     stop_moving()
-    time.sleep(10)
-    stop_all() 
+    time.sleep(5)
+    stop_all()
 """
 MAIN
 """

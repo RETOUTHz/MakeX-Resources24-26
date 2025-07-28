@@ -103,19 +103,25 @@ def move_backward(a:int):
         en["LB"].set_speed(0)
         en["LF"].set_speed(-a)
 
-def move_around(a:int):
+def turn_right(a:int):
         en["RF"].set_speed(a)
         en["RB"].set_speed(a)
         en["LB"].set_speed(-a)
         en["LF"].set_speed(a)
 
-def slide_left(a:int):
+def turn_left(a:int):
+        en["RF"].set_speed(-a)
+        en["RB"].set_speed(-a)
+        en["LB"].set_speed(a)
+        en["LF"].set_speed(-a)
+
+def slide_right(a:int):
         en["RF"].set_speed(a)
         en["RB"].set_speed(0)
         en["LB"].set_speed(-a*1.3)
         en["LF"].set_speed(0)
 
-def slide_right(a:int):
+def slide_left(a:int):
         en["RF"].set_speed(-a)
         en["RB"].set_speed(-a*0.4)
         en["LB"].set_speed(a*1.6)
@@ -178,14 +184,14 @@ class controller():
             stop_all()
 
         elif gamepad.is_key_pressed("L2"):
-            shooter_angle(62)
-            shooting(90)
+            shooter_angle(67)
+            shooting(85)
 
         elif gamepad.is_key_pressed("L_Thumb"):
-            servo_move(5)
+            shooter_angle(67)
 
-        elif gamepad.is_key_pressed("L_Thumb"):
-            servo_move(-5)
+        elif gamepad.is_key_pressed("R_Thumb"):
+            shooter_angle(67)
 
         elif gamepad.is_key_pressed("N2"):
             shoot(90,90,90)
@@ -264,110 +270,8 @@ class controller():
 """
 AUTO
 """
-def Right():
-    power_expand_board.set_power("DC1",100)
-    time.sleep(1.05)
-    power_expand_board.set_power("DC1",10) #lift up phase 1
-    slide_right(200)
-    time.sleep(1)
-    stop_moving() #set 0 phase 1
-    while lk.get_distance() <= 130:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(200)
-    stop_moving()
-    move_around(100)
-    time.sleep(0.5)
-    stop_moving()
-    move_backward(75)
-    time.sleep(2.5)
-    stop_moving() # set 0 phase 1
-    move_forward(75)
-    time.sleep(0.2)
-    stop_moving() # set 0 phase 1
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(100)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_right(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phsae 1
-    move_around(100)
-    time.sleep(0.2)
-    stop_moving()
-    move_backward(100)
-    time.sleep(1)
-    stop_moving() 
-    move_forward(75)
-    time.sleep(1.4)
-    stop_moving() #set 0 phase 2
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(75)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_right(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phase 2
-
-def Left():
-    power_expand_board.set_power("DC1",100)
-    time.sleep(1.1)
-    power_expand_board.set_power("DC1",10) #lift up phase 1
-    move_backward(100)
-    time.sleep(0.5)
-    stop_moving()
-    slide_right(200)
-    time.sleep(1)
-    stop_moving() #set 0 phase 1
-    while lk.get_distance() <= 135:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(200)
-    stop_moving()
-    move_forward(75)
-    time.sleep(2)
-    stop_moving() # set 0 phase 1
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(100)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_right(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phsae 1
-    move_backward(100)
-    time.sleep(1)
-    stop_moving() #set 0 phase 2
-    move_forward(75)
-    time.sleep(1.5)
-    stop_moving() 
-    while lk.get_distance() <= 175:
-        debug.show(lk.get_distance(), wait=False)
-        slide_left(100)
-    stop_moving()
-    time.sleep(1)
-    power_expand_board.set_power("DC3",-100)
-    slide_right(200)
-    time.sleep(1)
-    stop_moving()
-    power_expand_board.set_power("DC3",100)
-    time.sleep(1)
-    power_expand_board.set_power("DC3",0) # gripper phase 2
-
 def block_right():
-    move_around(-40)
+    turn_left(40)
     time.sleep(0.1)
     stop_moving()
     while bk.get_distance() <= 161:
@@ -376,25 +280,40 @@ def block_right():
         move_forward(300)
     stop_moving()
     time.sleep(1)
-    slide_right(150)
+    slide_left(150)
     time.sleep(1)
     stop_moving()
-    move_around(-100)
+    turn_left(-100)
     time.sleep(0.5)
     stop_moving()
-    move_around(100)
+    turn_right(100)
     time.sleep(0.5)
     stop_moving()
     time.sleep(5)
     stop_all() 
 
 def block_left():
+    slide_right(100)
+    time.sleep(0.3)
+    stop_moving()
     while bk.get_distance() <= 160:
         box(100)
         debug.show(bk.get_distance(), wait=False)
         move_forward(300)
     stop_moving()
+    slide_right(100)
+    time.sleep(0.7)
+    box(80)
+    time.sleep(0.5)
+    stop_moving()
+    turn_right(50)
+    time.sleep(0.2)
+    stop_moving()
+    move_forward(60)
+    time.sleep(0.2)
+    stop_moving()
     slide_left(100)
+    box(100)
     time.sleep(2)
     stop_moving()
     time.sleep(5)

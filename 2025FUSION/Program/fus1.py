@@ -281,7 +281,7 @@ def block_right():
     stop_moving()
     time.sleep(1)
     slide_left(150)
-    time.sleep(1)
+    time.sleep(2)
     stop_moving()
     turn_left(-100)
     time.sleep(0.5)

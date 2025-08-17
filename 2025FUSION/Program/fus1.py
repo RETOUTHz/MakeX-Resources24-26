@@ -31,7 +31,6 @@ sv = {
 debug = led_matrix_class("PORT5","INDEX1")
 bk = ranging_sensor_class("PORT5", "INDEX2")
 lk = ranging_sensor_class("PORT5", "INDEX1")
-
 """
 AUTO SECLET
 """
@@ -49,10 +48,8 @@ def lift(a:int):
     time.sleep(0.1)
     power_expand_board.set_power("DC1",15)
 
-def gripper(a:int,b:int):
+def gripper(a:int):
     power_expand_board.set_power("DC3",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC3",b)
 
 def feed(a:int,b:int):
     power_expand_board.set_power("DC8",a)
@@ -168,6 +165,19 @@ class movement:
         en["LB"].set_power(-lb)
         en["LF"].set_power(-lf)
 
+class blinking:
+    blink = False
+    def control_blink():
+        if novapi.timer() > 1:
+            blinking.blink = not blinking.blink
+            novapi.reset_timer()
+
+    def do_blinking():
+        if blinking.blink:
+            debug.show_image("00003c7e7e3c000000003c7e7e3c0000")
+        else:
+            debug.show_image("00103030303010000010303030301000")
+
 """
 CONTROLLER
 """
@@ -230,19 +240,19 @@ class controller():
             lift(-100)
 
         elif gamepad.is_key_pressed("Down"):
-            lift(50)
+            lift(100)
 
         elif gamepad.is_key_pressed("N4"):
-            gripper(-100,-100)
+            gripper(-100)
 
         elif gamepad.is_key_pressed("N1"):
-            gripper(100,100)
+            gripper(100)
 
         elif gamepad.is_key_pressed("Left"):
-            gripper(100,100)
+            gripper(100)
 
         elif gamepad.is_key_pressed("Right"):
-            gripper(-100,-100)
+            gripper(-100)
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
@@ -328,6 +338,7 @@ while True:
         while not not power_manage_module.is_auto_mode():
             pass
     else:
+        blinking.control_blink()
         controller.change_mode()
         if controller.mode == "1":
             debug.show(sv["shooter"].get_value("angle"),wait = False)
@@ -335,6 +346,6 @@ while True:
             red_servo()
             
         else:
-            debug.show_image("ffffffffffffffffffffffffffffffff")
+            blinking.do_blinking()
             controller.mode2()
             red_servo()

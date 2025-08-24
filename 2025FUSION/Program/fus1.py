@@ -168,7 +168,7 @@ class movement:
 class blinking:
     blink = False
     def control_blink():
-        if novapi.timer() > 1:
+        if novapi.timer() > 0.75:
             blinking.blink = not blinking.blink
             novapi.reset_timer()
 
@@ -269,8 +269,8 @@ class controller():
         elif gamepad.is_key_pressed("L2"):
             box(100)
         
-        elif gamepad.is_key_pressed("R2"):
-            box(-100)
+        elif gamepad.is_key_pressed("R1"):
+            shooting(0)
 
     def change_mode():
         if gamepad.is_key_pressed("+"):

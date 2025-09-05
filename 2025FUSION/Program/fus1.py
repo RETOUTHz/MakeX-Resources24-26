@@ -140,8 +140,8 @@ class movement:
     def control_movement_font():            
         rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.8) #+ math.fabs((gamepad.get_joystick("Ly") * 0.1))
         lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")) * 0.8) #- math.fabs((gamepad.get_joystick("Ly") * 0.1))
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.85 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
-        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.85 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")) * 0.9 #- math.fabs((gamepad.get_joystick("Lx") * 0.05))
+        rb = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")) * 0.9 #+ math.fabs((gamepad.get_joystick("Lx") * 0.05))
         # if math.fabs(gamepad.get_joystick("Rx")) > 10:
         #     power_expand_board.set_power("DC6", -gamepad.get_joystick("Rx") * 100)
         # else:
@@ -154,8 +154,8 @@ class movement:
     def control_movement_right():
         rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
         lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
-        lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
-        rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.85
+        lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.9
+        rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.9
         # if math.fabs(gamepad.get_joystick("Rx")) > 10:
         #     power_expand_board.set_power("DC7", -gamepad.get_joystick("Rx") * 100)
         # else:
@@ -284,7 +284,7 @@ def block_right():
     turn_left(40)
     time.sleep(0.1)
     stop_moving()
-    while bk.get_distance() <= 161:
+    while bk.get_distance() <= 170:
         box(100)
         debug.show(bk.get_distance(), wait=False)
         move_forward(300)

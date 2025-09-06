@@ -295,7 +295,7 @@ def block_right():
     stop_all() 
 
 def block_left():
-    while bk.get_distance() <= 155:
+    while bk.get_distance() <= 163:
         box(100)
         debug.show(bk.get_distance(), wait=False)
         move_forward(500)

@@ -281,7 +281,7 @@ def block_right():
         debug.show(bk.get_distance(), wait=False)
         move_forward(500)
     stop_moving()
-    time.sleep(1)
+    time.sleep(0.5)
     slide_left(150)
     time.sleep(2)
     stop_moving()
@@ -295,6 +295,9 @@ def block_right():
     stop_all() 
 
 def block_left():
+    turn_right(40)
+    time.sleep(0.1)
+    stop_moving()
     while bk.get_distance() <= 163:
         box(100)
         debug.show(bk.get_distance(), wait=False)

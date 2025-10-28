@@ -203,7 +203,7 @@ class controller():
             shoot(-90,-90,-90)
         
         elif gamepad.is_key_pressed("R1"):
-            shooting(80)
+            shooting(70)
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)
@@ -215,7 +215,7 @@ class controller():
             shooter_angle(88)
         
         elif gamepad.is_key_pressed("Right"):
-            shooter_angle(80)
+            shooter_angle(81)
 
         elif gamepad.is_key_pressed("Left"):
             shooter_angle(93)

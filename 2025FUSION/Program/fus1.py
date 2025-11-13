@@ -49,11 +49,11 @@ def lift(a:int):
     power_expand_board.set_power("DC1",15)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC3",a)
+    power_expand_board.set_power("DC2",a)
 
 def feed(a:int,b:int):
-    power_expand_board.set_power("DC8",a)
-    power_expand_board.set_power("DC2",-b)
+    power_expand_board.set_power("DC7",-a)
+    power_expand_board.set_power("DC8",b)
 
 def stop_all():
     power_expand_board.set_power("DC1",0)
@@ -131,7 +131,7 @@ def stop_moving():
         en["LF"].set_speed(0)
 
 def box(a:int):
-    power_expand_board.set_power("DC6",a)
+    power_expand_board.set_power("DC6",-a)
 
 """
 CONTROLLER

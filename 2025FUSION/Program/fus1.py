@@ -68,11 +68,11 @@ def stop_all():
 
 def shoot(a:int,b:int,c:int):
     power_expand_board.set_power("DC8",a)
-    power_expand_board.set_power("DC2",-b)
+    power_expand_board.set_power("DC7",-b)
     en["FEED"].set_power(c)
     time.sleep(0.1)
     power_expand_board.set_power("DC8",0)
-    power_expand_board.set_power("DC2",0)
+    power_expand_board.set_power("DC7",0)
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -201,6 +201,7 @@ class controller():
 
         elif gamepad.is_key_pressed("N3"):
             shoot(-90,-90,-90)
+            box(-100)
         
         elif gamepad.is_key_pressed("R1"):
             shooting(80)
@@ -209,16 +210,16 @@ class controller():
             shooting(0)
 
         elif gamepad.is_key_pressed("Up"):
-            shooter_angle(30)
+            shooter_angle(83)
 
         elif gamepad.is_key_pressed("Down"):
-            shooter_angle(83)
+            shooter_angle(20)
         
         elif gamepad.is_key_pressed("Right"):
-            shooter_angle(81)
+            shooter_angle(15)
 
         elif gamepad.is_key_pressed("Left"):
-            shooter_angle(93)
+            shooter_angle(5)
         
         elif gamepad.is_key_pressed("N4"):
             shooting(45)

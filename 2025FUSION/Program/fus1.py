@@ -91,10 +91,10 @@ def servo_move(angle):
         sv["shooter"].move_to(angle, 50)
 
 def move_forward(a:int):
-        en["RF"].set_speed(0)
-        en["RB"].set_speed(-a)
-        en["LB"].set_speed(0)
-        en["LF"].set_speed(a)
+        en["RF"].set_power(0)
+        en["RB"].set_power(-a)
+        en["LB"].set_power(0)
+        en["LF"].set_power(a)
 
 def move_backward(a:int):
         en["RF"].set_speed(0)
@@ -279,12 +279,12 @@ AUTO
 """
 def block_right():
     turn_left(40)
-    time.sleep(0.1)
+    time.sleep(0.2)
     stop_moving()
-    while bk.get_distance() <= 180:
+    while bk.get_distance() <= 148:
         box(100)
         debug.show(bk.get_distance(), wait=False)
-        move_forward(500)
+        move_forward(100)
     stop_moving()
     time.sleep(2)
     turn_left(50)
@@ -302,10 +302,8 @@ def block_right():
     slide_left(100)
     time.sleep(1)
     stop_moving()
-    while bk.get_distance() <= 180:
-        box(100)
-        debug.show(bk.get_distance(), wait=False)
-        move_forward(500)
+    move_forward(100)
+    time.sleep(1)
     stop_moving()
     time.sleep(2)
     turn_left(50)
@@ -322,35 +320,20 @@ def block_right():
 
 def block_left():
     turn_right(50)
-    time.sleep(0.1)
+    time.sleep(0.25)
     stop_moving()
-    while bk.get_distance() <= 156:
+    while bk.get_distance() <= 170:
         box(100)
         debug.show(bk.get_distance(), wait=False)
-        move_forward(500)
+        move_forward(100)
     stop_moving()
-    slide_right(100)
-    time.sleep(0.7)
-    box(100)
-    time.sleep(0.5)
-    stop_moving()
-    turn_right(50)
-    time.sleep(0.2)
-    stop_moving()
-    move_forward(60)
-    time.sleep(0.2)
-    stop_moving()
-    slide_left(100)
     time.sleep(1)
-    stop_moving()
-    turn_left(100)
-    time.sleep(1)
-    stop_moving()
-    move_forward(255)
+    move_backward(100)
     time.sleep(1)
     stop_moving()
     time.sleep(5)
     stop_all()
+
 """
 MAIN
 """

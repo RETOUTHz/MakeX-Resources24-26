@@ -186,7 +186,6 @@ class controller():
 
         elif gamepad.is_key_pressed("L1"):
             stop_all()
-            speaker.play_melody('!215')
 
         elif gamepad.is_key_pressed("L2"):
             shooter_angle(23)
@@ -211,7 +210,6 @@ class controller():
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)
-            speaker.play_melody('!216')
 
         elif gamepad.is_key_pressed("Up"):
             shooter_angle(83)
@@ -302,15 +300,23 @@ def block_right():
     stop_all()
 
 def block_left():
-    turn_right(50)
-    time.sleep(0.25)
+    turn_right(100)
+    time.sleep(0.4)
     stop_moving()
-    while bk.get_distance() <= 153:
+    while bk.get_distance() <= 152:
         box(100)
         debug.show(bk.get_distance(), wait=False)
         move_forward(100)
     stop_moving()
+    time.sleep(2)
+    turn_left(50)
     time.sleep(1)
+    turn_right(50)
+    time.sleep(2)
+    turn_left(50)
+    time.sleep(2)
+    stop_moving()
+    time.sleep(10)
     move_backward(100)
     time.sleep(1)
     stop_moving()

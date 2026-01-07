@@ -140,10 +140,10 @@ CONTROLLER
 """
 class movement:
     def control_movement_font():            
-        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")*0.9) * 0.8)
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")*0.9) * 0.8)
-        lf = ((gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")*0.9) * 0.85 )
-        rb = ((gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")*0.9) * 0.85 )
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")*0.9) * 0.85)
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")*0.9) * 0.95)
+        lf = ((gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")*0.9) * 0.9 )
+        rb = ((gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")*0.9) * 0.9 )
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -188,7 +188,7 @@ class controller():
             stop_all()
 
         elif gamepad.is_key_pressed("L2"):
-            shooter_angle(23)
+            shooter_angle(25)
             shooting(95)
 
         elif gamepad.is_key_pressed("L_Thumb"):
@@ -206,7 +206,7 @@ class controller():
             box(-100)
         
         elif gamepad.is_key_pressed("R1"):
-            shooting(80)
+            shooting(90)
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)

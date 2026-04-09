@@ -23,11 +23,44 @@ en = {
     "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
 }
 
-        
+sv = {
+    "shooter" : smartservo_class("M5","INDEX1")
+}
+"""
+CONTROLLER FUNCTION
+"""
+def feed(a:int,b:int,c:int):
+    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC2",b)
+    power_expand_board.set_power("DC3",c)
+
+def stop_feed():
+    power_expand_board.set_power("DC1",0)
+    power_expand_board.set_power("DC2",0)
+    power_expand_board.set_power("DC3",0)
+
+def lift(a:int):
+    power_expand_board.set_power("DC4",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC4",0)
+
+def gripper(a:int):
+    power_expand_board.set_power("DC5",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC5",0)
+
+def red_servo():
+    if sv["shooter"].get_value("current") > 1250:
+        sv["shooter"].set_power(0)
+
+def servo_move(angle):
+        sv["shooter"].move_to(angle, 50)
+
 """
 MANUAL
 """
-def controler():
+def controler_1():
+    mode = "1"
     if not gamepad.get_joystick("Rx") == 0:
         en["RF"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
         en["RB"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
@@ -47,12 +80,66 @@ def controler():
         en["RB"].set_power(gamepad.get_joystick("Ly") / (1.7 * -1))
     
     elif gamepad.is_key_pressed("N1"):
-        power_expand_board.set_power("DC1",-100)
-        power_expand_board.set_power("DC2",100)
+        feed(100,100,100)
+
+    elif gamepad.is_key_pressed("N2"):
+        feed(100,100,100)
+        time.sleep(0.1)
+        stop_feed()
+
+    elif gamepad.is_key_pressed("N3"):
+        feed(-100,-100,-100)
+        time.sleep(0.1)
+        stop_feed()
 
     elif gamepad.is_key_pressed("L1"):
-        power_expand_board.set_power("DC1",0)
-        power_expand_board.set_power("DC2",0)
+        stop_feed()
+
+def controler_2():
+    mode = "2"
+    if not gamepad.get_joystick("Rx") == 0:
+        en["RF"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
+        en["RB"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
+        en["LB"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
+        en["LF"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
+
+    elif not gamepad.get_joystick("Lx") == 0:
+        en["RF"].set_speed(-gamepad.get_joystick("Lx") / (0.1 * -1))
+        en["RB"].set_speed(-gamepad.get_joystick("Lx") / (0.05))
+        en["LB"].set_speed(-gamepad.get_joystick("Lx") / (0.1))
+        en["LF"].set_speed(-gamepad.get_joystick("Lx") / (0.1 * -1))
+    
+    elif not gamepad.get_joystick("Ly") == 0:
+        en["LB"].set_power(-gamepad.get_joystick("Ly") / 1.7)
+        en["LF"].set_power(-gamepad.get_joystick("Ly") / (1.635 * 1))
+        en["RF"].set_power(-gamepad.get_joystick("Ly") / (1.635* -1))
+        en["RB"].set_power(-gamepad.get_joystick("Ly") / (1.7 * -1))
+    
+    elif gamepad.is_key_pressed("Up"):
+        lift(100)
+    
+    elif gamepad.is_key_pressed("Down"):
+        lift(-100)
+        
+    elif gamepad.is_key_pressed("N1"):
+        gripper(100)
+    
+    elif gamepad.is_key_pressed("N2"):
+        gripper(-100)
+    
+    elif gamepad.is_key_pressed("N3"):
+        gripper(0)
+    
+    elif gamepad.is_key_pressed("L1"):
+        stop_feed()
+
+def change_mode():
+    if gamepad.is_key_pressed("+"):
+        mode = "1"
+    elif gamepad.is_key_pressed("≡"):
+        mode = "2"
+    
+
 """
 MAIN
 """
@@ -64,6 +151,7 @@ while True:
         while not not power_manage_module.is_auto_mode():
             pass
     else:
-        # controler()
-        power_extand_board.set_power("DC1",100)
-        power_extand_board.set_power("DC2",100)
+        if mode == "1":
+            controler_1()
+        elif mode == "2":
+            controler_2()

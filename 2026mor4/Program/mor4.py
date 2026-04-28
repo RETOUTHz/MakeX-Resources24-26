@@ -134,6 +134,7 @@ def controler_2():
         stop_feed()
 
 def change_mode():
+    global mode
     if gamepad.is_key_pressed("+"):
         mode = "1"
     elif gamepad.is_key_pressed("≡"):

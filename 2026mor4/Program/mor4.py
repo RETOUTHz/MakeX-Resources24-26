@@ -26,6 +26,9 @@ en = {
 sv = {
     "shooter" : smartservo_class("M5","INDEX1")
 }
+
+mode = "1"
+
 """
 CONTROLLER FUNCTION
 """
@@ -152,6 +155,7 @@ while True:
         while not not power_manage_module.is_auto_mode():
             pass
     else:
+        change_mode()
         if mode == "1":
             controler_1()
         elif mode == "2":

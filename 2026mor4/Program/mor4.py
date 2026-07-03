@@ -11,7 +11,6 @@ from mbuild.ranging_sensor import ranging_sensor_class
 from mbuild.smart_camera import smart_camera_class
 from mbuild.led_matrix import led_matrix_class
 from mbuild.button import button_class
-from mbuild.ai_camera import ai_camera_class
 import mbuild
 import time
 import math
@@ -85,23 +84,6 @@ MANUAL
 """
 def controler_1():
     mode = "1"
-    # if not gamepad.get_joystick("Rx") == 0:
-    #     en["RF"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["RB"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["LB"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["LF"].set_power(gamepad.get_joystick("Rx") / (1.95 * -1))
-
-    # elif not gamepad.get_joystick("Lx") == 0:
-    #     en["RF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-    #     en["RB"].set_speed(gamepad.get_joystick("Lx") / (0.05))
-    #     en["LB"].set_speed(gamepad.get_joystick("Lx") / (0.1))
-    #     en["LF"].set_speed(gamepad.get_joystick("Lx") / (0.1 * -1))
-    
-    # elif not gamepad.get_joystick("Ly") == 0:
-    #     en["LB"].set_power(gamepad.get_joystick("Ly") / 1.7)
-    #     en["LF"].set_power(gamepad.get_joystick("Ly") / (1.635 * 1))
-    #     en["RF"].set_power(gamepad.get_joystick("Ly") / (1.635* -1))
-    #     en["RB"].set_power(gamepad.get_joystick("Ly") / (1.7 * -1))
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
 
@@ -126,24 +108,6 @@ def controler_1():
 
 def controler_2():
     mode = "2"
-    # if not gamepad.get_joystick("Rx") == 0:
-    #     en["RF"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["RB"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["LB"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
-    #     en["LF"].set_power(-gamepad.get_joystick("Rx") / (1.95 * -1))
-
-    # elif not gamepad.get_joystick("Lx") == 0:
-    #     en["RF"].set_speed(-gamepad.get_joystick("Lx") / (0.1 * -1))
-    #     en["RB"].set_speed(-gamepad.get_joystick("Lx") / (0.05))
-    #     en["LB"].set_speed(-gamepad.get_joystick("Lx") / (0.1))
-    #     en["LF"].set_speed(-gamepad.get_joystick("Lx") / (0.1 * -1))
-    
-    # elif not gamepad.get_joystick("Ly") == 0:
-    #     en["LB"].set_power(-gamepad.get_joystick("Ly") / 1.7)
-    #     en["LF"].set_power(-gamepad.get_joystick("Ly") / (1.635 * 1))
-    #     en["RF"].set_power(-gamepad.get_joystick("Ly") / (1.635* -1))
-    #     en["RB"].set_power(-gamepad.get_joystick("Ly") / (1.7 * -1))
-    
     if gamepad.is_key_pressed("Up"):
         lift(100)
     

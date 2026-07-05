@@ -1,154 +1,195 @@
 """
 MakeSex 2026
 """
-import novapi
-from mbuild import power_manage_module
-from mbuild.encoder_motor import encoder_motor_class
-from mbuild import power_expand_board
-from mbuild import gamepad
-from mbuild.smartservo import smartservo_class
-from mbuild.ranging_sensor import ranging_sensor_class
-from mbuild.smart_camera import smart_camera_class
-from mbuild.led_matrix import led_matrix_class
-from mbuild.button import button_class
-import mbuild
+
 import time
 import math
+import novapi
+import mbuild
+
+from mbuild import power_manage_module
+from mbuild import power_expand_board
+from mbuild import gamepad
+
+from mbuild.encoder_motor import encoder_motor_class
+from mbuild.smartservo import smartservo_class
+
+# -----------------------------
+# MOTOR
+# -----------------------------
 
 en = {
-    "LF": encoder_motor_class("M2", "INDEX1"), #Left_Front wheel
-    "LB": encoder_motor_class("M1", "INDEX1"), #Lef_Back wheel
-    "RF": encoder_motor_class("M4", "INDEX1"), #Right_Front wheel 
-    "RB": encoder_motor_class("M6", "INDEX1")  #Right_Back wheel
+    "LF": encoder_motor_class("M3", "INDEX1"),
+    "LB": encoder_motor_class("M1", "INDEX1"),
+    "RF": encoder_motor_class("M6", "INDEX1"),
+    "RB": encoder_motor_class("M5", "INDEX1"),
+    "FEED": encoder_motor_class("M2", "INDEX1"),
+    "FEED1": encoder_motor_class("M1", "INDEX1")
+
+
 }
 
 sv = {
-    "shooter" : smartservo_class("M5","INDEX1")
-}
+    "shooter": smartservo_class("M2", "INDEX1"),
+    "tua": smartservo_class("M1","INDEX1")
+    
+    }
 
 mode = "1"
-"""
-CONTROLLER FUNCTION
-"""
+
+# -----------------------------
+# FUNCTIONS
+# -----------------------------
+
+def move_forward(a:int):
+    en["LF"].set_power(a)
+    en["LB"].set_power(a)
+    en["RF"].set_power(-a)
+    en["RB"].set_power(-a)
+
+def move_backward(a:int):
+    en["LF"].set_power(-a)
+    en["LB"].set_power(-a)
+    en["RF"].set_power(a)
+    en["RB"].set_power(a)
+
+def turn_right(a:int):
+    en["LF"].set_power(a)
+    en["LB"].set_power(a)
+    en["RF"].set_power(a)
+    en["RB"].set_power(a)
+
+def turn_left(a:int):
+    en["LF"].set_power(-a)
+    en["LB"].set_power(-a)
+    en["RF"].set_power(-a)
+    en["RB"].set_power(-a)
+
+def slide_right(a:int):
+    en["LF"].set_power(a)
+    en["LB"].set_power(-a)
+    en["RF"].set_power(-a)
+    en["RB"].set_power(a)
+
+def slide_left(a:int):
+    en["LF"].set_power(-a)
+    en["LB"].set_power(a)
+    en["RF"].set_power(a)
+    en["RB"].set_power(-a)
+
+def stop_moving():
+    en["LF"].set_power(0)
+    en["LB"].set_power(0)
+    en["RF"].set_power(0)
+    en["RB"].set_power(0)
+
 def feed(a:int,b:int,c:int):
-    power_expand_board.set_power("DC1",a)
+    en["FEED"].set_power(a)
     power_expand_board.set_power("DC2",b)
-    power_expand_board.set_power("DC3",c)
+    power_expand_board.set_power("DC4",-c)
 
-def stop_feed():
-    power_expand_board.set_power("DC1",0)
-    power_expand_board.set_power("DC2",0)
-    power_expand_board.set_power("DC3",0)
 
-def lift(a:int):
-    power_expand_board.set_power("DC4",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC4",0)
 
-def gripper(a:int):
-    power_expand_board.set_power("DC5",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC5",0)
-
-def red_servo():
-    if sv["shooter"].get_value("current") > 1250:
-        sv["shooter"].set_power(0)
-
-def servo_move(angle):
-        sv["shooter"].move_to(angle, 50)
+def auto():
+    move_forward(59)
+    time.sleep(1.5)
+    stop_moving()    
+    
+# -----------------------------
+# DRIVE
+# -----------------------------
 
 def control_movement():
 
-    x = gamepad.get_joystick("Lx")
-    y = gamepad.get_joystick("Ly")
-    r = gamepad.get_joystick("Rx") * 0.9
+    x = -gamepad.get_joystick("Lx") * 0.5
+    y = gamepad.get_joystick("Ly") / 1.6
+    r = -gamepad.get_joystick("Rx") / 1.6
 
     lf = y + x + r
     rf = y - x - r
     lb = y - x + r
     rb = y + x - r
 
-    max_power = max(abs(lf), abs(rf), abs(lb), abs(rb), 100)
+    #max_power = max(abs(lf), abs(rf), abs(lb), abs(rb), 100)
 
-    lf = lf * 100 / max_power
-    rf = rf * 100 / max_power
-    lb = lb * 100 / max_power
-    rb = rb * 100 / max_power
+    lf = lf * 100 / 100
+    rf = rf * 100 / 100
+    lb = lb * 100 / 100
+    rb = rb * 100 / 100
 
     en["LF"].set_power(lf)
     en["LB"].set_power(lb)
-    en["RF"].set_power(-rf) 
+    en["RF"].set_power(-rf)
     en["RB"].set_power(-rb)
-"""
-MANUAL
-"""
-def controler_1():
-    mode = "1"
+
+
+# -----------------------------
+# MODE 1
+# -----------------------------
+
+def controller_1():
+    control_movement()
+    # Feed
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
-
-    elif gamepad.is_key_pressed("N2"):
-        feed(100,100,100)
-        time.sleep(0.1)
-        stop_feed()
-
-    elif gamepad.is_key_pressed("N3"):
-        feed(-100,-100,-100)
-        time.sleep(0.1)
-        stop_feed()
-
+    
     elif gamepad.is_key_pressed("L1"):
-        stop_feed()
-    
-    else:
-        en["RF"].set_power(0)
-        en["RB"].set_power(0)
-        en["LB"].set_power(0)
-        en["LF"].set_power(0)
+        feed(0,0,0)
 
-def controler_2():
-    mode = "2"
-    if gamepad.is_key_pressed("Up"):
-        lift(100)
-    
+    elif gamepad.is_key_pressed("Up"):
+        sv["shooter"].set_power(50)
+        time.sleep(0.1)
+        sv["shooter"].set_power(0)
+
     elif gamepad.is_key_pressed("Down"):
-        lift(-100)
-        
-    elif gamepad.is_key_pressed("N1"):
-        gripper(100)
-    
-    elif gamepad.is_key_pressed("N2"):
-        gripper(-100)
-    
-    elif gamepad.is_key_pressed("N3"):
-        gripper(0)
-    
-    elif gamepad.is_key_pressed("L1"):
-        stop_feed()
+        sv["shooter"].set_power(-50)
+        time.sleep(0.1)
+        sv["shooter"].set_power(0)
 
-def change_mode():
-    global mode
-    if gamepad.is_key_pressed("+"):
-        mode = "1"
+    elif gamepad.is_key_pressed("L2"):
+        feed(-100,-100,-60)
+    
+    elif gamepad.is_key_pressed("R1"):
+        power_expand_board.set_power("BL1",100)
+        power_expand_board.set_power("BL2",100)
+
+    elif gamepad.is_key_pressed("R2"):
+        power_expand_board.set_power("BL1",0)
+        power_expand_board.set_power("BL2",0) 
+    
+    elif gamepad.is_key_pressed("+"):
+        power_expand_board.set_power("BL1",60)
+        power_expand_board.set_power("BL1",60)
+        sv["tua"].move_to(0,50)        
+
     elif gamepad.is_key_pressed("≡"):
-        mode = "2"
-    
+        power_expand_board.set_power("BL1",60)
+        power_expand_board.set_power("BL1",80)
+        sv["tua"].move_to(45,50)   
 
-"""
-MAIN
-"""
+    elif gamepad.is_key_pressed("N2"):
+        power_expand_board.set_power("DC3",100)
+        time.sleep(0.1)
+        power_expand_board.set_power("DC3",0)
+
+    elif gamepad.is_key_pressed("N3"):
+        power_expand_board.set_power("DC3",-100)
+        time.sleep(0.1)
+        power_expand_board.set_power("DC3",0)
+
+    elif gamepad.is_key_pressed("N4"):
+        power_expand_board.set_power("DC4",-100)
+
+# -----------------------------
+# MAIN
+# -----------------------------
 
 while True:
-    time.sleep(0.001)
+
     if power_manage_module.is_auto_mode():
-        pass
-        while not not power_manage_module.is_auto_mode():
+        auto()
+        while power_manage_module.is_auto_mode():
             pass
+
     else:
-        change_mode()
-        if mode == "1":
-            control_movement()
-            controler_1()
-        elif mode == "2":
-            control_movement()
-            controler_2()
+        controller_1()

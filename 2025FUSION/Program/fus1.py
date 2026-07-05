@@ -9,7 +9,7 @@ from mbuild.ranging_sensor import ranging_sensor_class
 from mbuild.smart_camera import smart_camera_class
 from mbuild.led_matrix import led_matrix_class
 from mbuild.button import button_class
-from mbuild.speaker import speaker_class
+#from mbuild.speaker import speaker_class
 import mbuild
 import time
 import math
@@ -29,7 +29,7 @@ sv = {
     "shooter" : smartservo_class("M4","INDEX1")
 }
 
-speaker = speaker_class("PORT4", "INDEX1")
+#speaker = speaker_class("PORT4", "INDEX1")
 debug = led_matrix_class("PORT5","INDEX1")
 bk = ranging_sensor_class("PORT5", "INDEX2")
 lk = ranging_sensor_class("PORT5", "INDEX1")
@@ -178,7 +178,7 @@ CONTROLLER
 class controller():
     mode = "1"
     def mode1():
-        global open_feed
+        #global open_feed
         movement.control_movement_font()
         if gamepad.is_key_pressed("N1"):
             feed(100,100)
@@ -326,7 +326,7 @@ def block_left():
 """
 MAIN
 """
-speaker.set_volume(100)
+#speaker.set_volume(100)
 while True:
     #debug.show_image("ff828c8c80ff008383ff00ffc90101ff")
     if power_manage_module.is_auto_mode():

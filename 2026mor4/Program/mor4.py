@@ -14,9 +14,9 @@ from mbuild import gamepad
 from mbuild.encoder_motor import encoder_motor_class
 from mbuild.smartservo import smartservo_class
 
-# -----------------------------
-# MOTOR
-# -----------------------------
+"""
+INITIALISATION
+"""
 
 en = {
     "LF": encoder_motor_class("M3", "INDEX1"),
@@ -30,16 +30,19 @@ en = {
 }
 
 sv = {
-    "shooter": smartservo_class("M2", "INDEX1"),
-    "tua": smartservo_class("M1","INDEX1")
+    "tua": smartservo_class("M2", "INDEX1"),
+    "shooter": smartservo_class("M1","INDEX1")
     
     }
 
-mode = "1"
 
-# -----------------------------
-# FUNCTIONS
-# -----------------------------
+"""
+AUTOMATIC
+"""
+def auto():
+    move_forward(59)
+    time.sleep(1.5)
+    stop_moving()   
 
 def move_forward(a:int):
     en["LF"].set_power(a)
@@ -83,21 +86,34 @@ def stop_moving():
     en["RF"].set_power(0)
     en["RB"].set_power(0)
 
+"""
+FUNCTION
+"""
 def feed(a:int,b:int,c:int):
     en["FEED"].set_power(a)
     power_expand_board.set_power("DC2",b)
     power_expand_board.set_power("DC4",-c)
 
+def shoot(a:int):
+    power_expand_board.set_power("DC3",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC3",0)
 
+def shooting(a:int):
+    power_expand_board.set_power("BL1",a)
+    power_expand_board.set_power("BL2",a)
 
-def auto():
-    move_forward(59)
-    time.sleep(1.5)
-    stop_moving()    
+def shoot_angle(a:int):
+    sv["shooter"].move_to(a,50)
+
+def lift(a:int):
+    sv["tua"].set_power(a)
+    time.sleep(0.1)
+    sv["tua"].set_power(0)
     
-# -----------------------------
-# DRIVE
-# -----------------------------
+"""
+MOVEMENT
+"""
 
 def control_movement():
 
@@ -123,13 +139,12 @@ def control_movement():
     en["RB"].set_power(-rb)
 
 
-# -----------------------------
-# MODE 1
-# -----------------------------
+"""
+MODE 1
+"""
 
 def controller_1():
     control_movement()
-    # Feed
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
     
@@ -137,52 +152,40 @@ def controller_1():
         feed(0,0,0)
 
     elif gamepad.is_key_pressed("Up"):
-        sv["shooter"].set_power(50)
-        time.sleep(0.1)
-        sv["shooter"].set_power(0)
+        lift(50)
 
     elif gamepad.is_key_pressed("Down"):
-        sv["shooter"].set_power(-50)
-        time.sleep(0.1)
-        sv["shooter"].set_power(0)
+        lift(-50)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100,-60)
     
     elif gamepad.is_key_pressed("R1"):
-        power_expand_board.set_power("BL1",100)
-        power_expand_board.set_power("BL2",100)
+        shooting(100)
 
     elif gamepad.is_key_pressed("R2"):
-        power_expand_board.set_power("BL1",0)
-        power_expand_board.set_power("BL2",0) 
+        shooting(0)
     
     elif gamepad.is_key_pressed("+"):
-        power_expand_board.set_power("BL1",60)
-        power_expand_board.set_power("BL1",60)
-        sv["tua"].move_to(0,50)        
+        shooting(60)
+        shoot_angle(45)   
 
     elif gamepad.is_key_pressed("≡"):
-        power_expand_board.set_power("BL1",60)
-        power_expand_board.set_power("BL1",80)
-        sv["tua"].move_to(45,50)   
+        shooting(80)
+        shoot_angle(65)   
 
     elif gamepad.is_key_pressed("N2"):
-        power_expand_board.set_power("DC3",100)
-        time.sleep(0.1)
-        power_expand_board.set_power("DC3",0)
+        shoot(100)
 
     elif gamepad.is_key_pressed("N3"):
-        power_expand_board.set_power("DC3",-100)
-        time.sleep(0.1)
-        power_expand_board.set_power("DC3",0)
+        shoot(-100)
 
     elif gamepad.is_key_pressed("N4"):
-        power_expand_board.set_power("DC4",-100)
+        feed(0,0,100)
 
-# -----------------------------
-# MAIN
-# -----------------------------
+"""
+MAIN
+"""
 
 while True:
 

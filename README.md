@@ -1,6 +1,6 @@
 <img src = "https://lh4.googleusercontent.com/proxy/-3tYmsiYINiCU92d21cdiZ9rmGSf8HXauVk5Qw7P0VA5TZQ69eB8mIs7x6TNYfMQ1iRbcqRLX_rdti9fQSE4sQW7mrumejvF74WMQ0UiJ8hRkxVvcIfFM85VwEGU212MlXwvT-tu612xPpcjfAVJog-aCMQH_JM0kw"></img>
 
-# MakeX-Resources 24-25
+# MakeX-Resources 24-26
 
 This repository is a collection of information about the MakeX competition from 2024 - 2025, gathering details such as competition results, team statistics, rule changes, project documentation, and other important data. It aims to help participants, organizers, and enthusiasts stay updated on the developments and progress of the MakeX competition during this period.
 
@@ -21,3 +21,4 @@ This repository is a collection of information about the MakeX competition from 
 * [2024 : CS6th](2024CS6th)
 * [2025 : FUSION](2025FUSION)
 * [2025 : CS6th](2025CS6th)
+* [2026 : RAIJIN](2026RAIJIN)

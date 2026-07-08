@@ -21,4 +21,4 @@ This repository is a collection of information about the MakeX competition from 
 * [2024 : CS6th](2024CS6th)
 * [2025 : FUSION](2025FUSION)
 * [2025 : CS6th](2025CS6th)
-* [2026 : RAIJIN](2026RAIJIN)
+* [2026 : 雷神(RAIJIN)](2026雷神(RAIJIN))

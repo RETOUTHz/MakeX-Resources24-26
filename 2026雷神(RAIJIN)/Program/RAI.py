@@ -26,7 +26,6 @@ en = {
     "FEED": encoder_motor_class("M2", "INDEX1"),
     "FEED1": encoder_motor_class("M1", "INDEX1")
 
-
 }
 
 sv = {
@@ -34,8 +33,6 @@ sv = {
     "shooter": smartservo_class("M1","INDEX1")
     
     }
-
-
 """
 AUTOMATIC
 """

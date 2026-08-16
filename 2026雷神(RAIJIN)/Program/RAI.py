@@ -161,13 +161,13 @@ def controller_1():
         feed(-100,-100,-60)
     
     elif gamepad.is_key_pressed("R1"):
-        shooting(100)
+        shooting(90)
 
     elif gamepad.is_key_pressed("R2"):
         shooting(0)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(60)
+        shooting(30)
         shoot_angle(45)   
 
     elif gamepad.is_key_pressed("≡"):

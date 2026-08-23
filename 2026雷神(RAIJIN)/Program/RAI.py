@@ -21,7 +21,7 @@ INITIALISATION
 en = {
     "LF": encoder_motor_class("M3", "INDEX1"),
     "LB": encoder_motor_class("M4", "INDEX1"),
-    "RF": encoder_motor_class("M6", "INDEX1"),
+    "RF": encoder_motor_class("M1", "INDEX1"),
     "RB": encoder_motor_class("M5", "INDEX1"),
     "FEED": encoder_motor_class("M2", "INDEX1"),
     "FEED1": encoder_motor_class("M1", "INDEX1")
@@ -158,17 +158,19 @@ def controller_1():
     
     elif gamepad.is_key_pressed("R1"):
         shooting(90)
+        shoot_angle(65)   
+
 
     elif gamepad.is_key_pressed("R2"):
         shooting(0)
     
     elif gamepad.is_key_pressed("+"):
         shooting(30)
-        shoot_angle(23)   
+        shoot_angle(50)   
 
     elif gamepad.is_key_pressed("≡"):
         shooting(80)
-        shoot_angle(0)   
+        shoot_angle(10)   
 
     elif gamepad.is_key_pressed("N2"):
         shoot(100)

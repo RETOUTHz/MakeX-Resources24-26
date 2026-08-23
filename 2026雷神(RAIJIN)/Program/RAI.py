@@ -30,8 +30,7 @@ en = {
 
 sv = {
     "tua": smartservo_class("M2", "INDEX1"),
-    "shooter": smartservo_class("M1","INDEX1")
-    
+    "shooter": smartservo_class("M4","INDEX1")
     }
 """\
 AUTOMATIC
@@ -165,11 +164,11 @@ def controller_1():
     
     elif gamepad.is_key_pressed("+"):
         shooting(30)
-        shoot_angle(45)   
+        shoot_angle(23)   
 
     elif gamepad.is_key_pressed("≡"):
         shooting(80)
-        shoot_angle(65)   
+        shoot_angle(0)   
 
     elif gamepad.is_key_pressed("N2"):
         shoot(100)

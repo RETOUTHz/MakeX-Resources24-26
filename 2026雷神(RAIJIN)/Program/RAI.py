@@ -114,8 +114,8 @@ MOVEMENT
 def control_movement():
 
     x = -gamepad.get_joystick("Lx") * 0.5
-    y = gamepad.get_joystick("Ly") / 1.6
-    r = -gamepad.get_joystick("Rx") / 1.6
+    y = gamepad.get_joystick("Ly") / 1.5
+    r = -gamepad.get_joystick("Rx") / 1.5
 
     lf = y + x + r
     rf = y - x - r

@@ -86,7 +86,7 @@ def stop_moving():
 FUNCTION
 """
 def feed(a:int,b:int,c:int):
-    en["FEED"].set_power(a)
+    power_expand_board.set_power("DC5",a)
     power_expand_board.set_power("DC2",b)
     power_expand_board.set_power("DC4",-c)
 
@@ -103,9 +103,13 @@ def shoot_angle(a:int):
     sv["shooter"].move_to(a,50)
 
 def lift(a:int):
-    sv["tua"].set_power(a)
+    power_expand_board.set_power("DC6",a)
     time.sleep(0.1)
-    sv["tua"].set_power(0)
+    power_expand_board.set_power("DC6",10)
+
+def gripper(a:int):
+    power_expand_board.set_power("DC7",a)
+    power_expand_board.set_power("DC7",a)
     
 """
 MOVEMENT

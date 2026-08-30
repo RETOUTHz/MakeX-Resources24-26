@@ -36,9 +36,34 @@ sv = {
 AUTOMATIC
 """
 def auto():
-    move_forward(59)
+    power_expand_board.set_power("DC6",-100)
     time.sleep(1.5)
-    stop_moving()   
+    power_expand_board.set_power("DC6",-10)
+    slide_right(50)
+    time.sleep(0.9) 
+    stop_moving()
+    move_backward(50)
+    time.sleep(0.3)
+    stop_moving()
+    move_forward(50)
+    time.sleep(1.5)
+    stop_moving()
+    # turn_right(40)
+    # time.sleep(1)
+    # stop_moving()
+    # gripper(100)
+    # slide_left(40)
+    # time.sleep(1)
+    # stop_moving()
+    # time.sleep(2)
+    # stop_moving()
+    # slide_right(40)
+    # time.sleep(2)
+    # stop_moving()
+    # gripper(-100)
+    # time.sleep(3)
+    # stop_all()
+     
 
 def move_forward(a:int):
     en["LF"].set_power(a)
@@ -67,14 +92,14 @@ def turn_left(a:int):
 def slide_right(a:int):
     en["LF"].set_power(a)
     en["LB"].set_power(-a)
-    en["RF"].set_power(-a)
-    en["RB"].set_power(a)
+    en["RF"].set_power(a)
+    en["RB"].set_power(-a)
 
 def slide_left(a:int):
     en["LF"].set_power(-a)
     en["LB"].set_power(a)
-    en["RF"].set_power(a)
-    en["RB"].set_power(-a)
+    en["RF"].set_power(-a)
+    en["RB"].set_power(a)
 
 def stop_moving():
     en["LF"].set_power(0)
@@ -92,7 +117,6 @@ def stop_all():
     power_expand_board.set_power("DC7",0)
     power_expand_board.set_power("DC8",0)
 
-
 """
 FUNCTION
 """
@@ -103,8 +127,11 @@ def feed(a:int,b:int,c:int):
 
 def shoot(a:int):
     power_expand_board.set_power("DC3",a)
+    power_expand_board.set_power("DC1",a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
+    power_expand_board.set_power("DC1",0)
+
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -119,11 +146,8 @@ def lift(a:int):
     power_expand_board.set_power("DC6",-10)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC7",a)
-    power_expand_board.set_power("DC8",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC7",0)
-    power_expand_board.set_power("DC8",0)
+    power_expand_board.set_power("DC7",-a)
+    power_expand_board.set_power("DC8",-a)
     
 """
 MOVEMENT
@@ -131,7 +155,7 @@ MOVEMENT
 
 def control_movement():
 
-    x = -gamepad.get_joystick("Lx") * 0.5
+    x = -gamepad.get_joystick("Lx") * 1
     y = gamepad.get_joystick("Ly") / 1.5
     r = -gamepad.get_joystick("Rx") / 1.5
 
@@ -161,7 +185,9 @@ def controller_1():
     control_movement()
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
-    
+        power_expand_board.set_power("DC3",100)
+        shoot_angle(90)   
+
     elif gamepad.is_key_pressed("L1"):
         feed(0,0,0)
         stop_all()
@@ -173,37 +199,40 @@ def controller_1():
         lift(100)
 
     elif gamepad.is_key_pressed("Left"):
-        gripper(-50)
+        gripper(-100)
+        time.sleep(0.01)
+        gripper(0)
 
     elif gamepad.is_key_pressed("Right"):
-        gripper(50)
+        gripper(100)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100,-60)
-    
+        power_expand_board.set_power("DC3",100)
+        gripper(-100)
+
     elif gamepad.is_key_pressed("R1"):
-        shooting(60)
-        shoot_angle(70)   
+        shooting(65)
+        shoot_angle(65)   
 
     elif gamepad.is_key_pressed("R2"):
         shooting(0)
     
     elif gamepad.is_key_pressed("+"):
         shooting(50)
-        shoot_angle(45)   
 
     elif gamepad.is_key_pressed("≡"):
         shooting(40)
-        shoot_angle(40)   
 
     elif gamepad.is_key_pressed("N2"):
-        shoot(50)
+        shoot(70)
+        shoot_angle(0)   
 
     elif gamepad.is_key_pressed("N3"):
-        shoot(-50)
+        shoot(-70)
 
     elif gamepad.is_key_pressed("N4"):
-        feed(0,0,100)
+        shooting(100)
 
     
 

@@ -19,19 +19,19 @@ INITIALISATION
 """
 
 en = {
-    "LF": encoder_motor_class("M4", "INDEX1"),
+    "LF": encoder_motor_class("M3", "INDEX1"),
     "LB": encoder_motor_class("M5", "INDEX1"),
     "RF": encoder_motor_class("M1", "INDEX1"),
     "RB": encoder_motor_class("M6", "INDEX1"),
-    "FEED": encoder_motor_class("M2", "INDEX1"),
-    "FEED1": encoder_motor_class("M1", "INDEX1")
-
 }
 
 sv = {
     "tua": smartservo_class("M2", "INDEX1"),
     "shooter": smartservo_class("M4","INDEX1")
     }
+
+mode = "1"
+
 """
 AUTOMATIC
 """
@@ -121,17 +121,14 @@ def stop_all():
 FUNCTION
 """
 def feed(a:int,b:int,c:int):
-    power_expand_board.set_power("DC5",a)
+    power_expand_board.set_power("DC1",-a)
     power_expand_board.set_power("DC2",b)
-    power_expand_board.set_power("DC4",-c)
+    power_expand_board.set_power("DC5",c)
 
 def shoot(a:int):
-    power_expand_board.set_power("DC3",a)
-    power_expand_board.set_power("DC1",a)
+    power_expand_board.set_power("DC3",-a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
-    power_expand_board.set_power("DC1",0)
-
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -141,12 +138,17 @@ def shoot_angle(a:int):
     sv["shooter"].move_to(a,50)
 
 def lift(a:int):
-    power_expand_board.set_power("DC6",a)
+    power_expand_board.set_power("DC4",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC6",-10)
+    power_expand_board.set_power("DC4",0)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC7",-a)
+    power_expand_board.set_power("DC6",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC6",0)
+
+def doo(a:int):
+    power_expand_board.set_power("DC7",a)
     power_expand_board.set_power("DC8",-a)
     
 """
@@ -185,7 +187,6 @@ def controller_1():
     control_movement()
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
-        power_expand_board.set_power("DC3",100)
         shoot_angle(90)   
 
     elif gamepad.is_key_pressed("L1"):
@@ -199,12 +200,12 @@ def controller_1():
         lift(100)
 
     elif gamepad.is_key_pressed("Left"):
-        gripper(-100)
-        time.sleep(0.01)
-        gripper(0)
+        doo(-75)
+        time.sleep(0.1)
+        doo(0)
 
     elif gamepad.is_key_pressed("Right"):
-        gripper(100)
+        doo(75)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100,-60)
@@ -234,7 +235,31 @@ def controller_1():
     elif gamepad.is_key_pressed("N4"):
         shooting(100)
 
-    
+def controller_2():
+    control_movement()
+
+    if gamepad.is_key_pressed("Up"):
+        lift(-75)
+
+    elif gamepad.is_key_pressed("Down"):
+        lift(75)
+
+    elif gamepad.is_key_pressed("Right"):
+        gripper(-100)
+
+    elif gamepad.is_key_pressed("Left"):
+        gripper(100)
+
+
+def change_mode():
+    global mode
+    if gamepad.is_key_pressed("L_Thumb"):
+        if mode == "1":
+            mode = "2"
+        else:
+            mode = "1"
+        time.sleep(0.3)
+
 
 """
 MAIN
@@ -248,4 +273,8 @@ while True:
             pass
 
     else:
-        controller_1()
+        change_mode()
+        if mode == "1" :
+            controller_1()
+        else:
+            controller_2()

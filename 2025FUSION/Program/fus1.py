@@ -206,7 +206,7 @@ class controller():
             box(-100)
         
         elif gamepad.is_key_pressed("R1"):
-            shooting(90)
+            shooting(80)
 
         elif gamepad.is_key_pressed("R2"):
             shooting(0)

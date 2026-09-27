@@ -36,33 +36,17 @@ mode = "1"
 AUTOMATIC
 """
 def auto():
-    power_expand_board.set_power("DC6",-100)
-    time.sleep(1.5)
-    power_expand_board.set_power("DC6",-10)
-    slide_right(50)
-    time.sleep(0.9) 
-    stop_moving()
-    move_backward(50)
-    time.sleep(0.3)
-    stop_moving()
-    move_forward(50)
-    time.sleep(1.5)
-    stop_moving()
-    # turn_right(40)
-    # time.sleep(1)
+    # slide_left(50)
+    # time.sleep(0.9) 
     # stop_moving()
-    # gripper(100)
-    # slide_left(40)
-    # time.sleep(1)
+    # move_backward(50)
+    # time.sleep(0.3)
     # stop_moving()
-    # time.sleep(2)
+    # move_forward(50)
+    # time.sleep(1.5)
     # stop_moving()
-    # slide_right(40)
-    # time.sleep(2)
-    # stop_moving()
-    # gripper(-100)
-    # time.sleep(3)
-    # stop_all()
+    pass
+
      
 
 def move_forward(a:int):
@@ -144,8 +128,6 @@ def lift(a:int):
 
 def gripper(a:int):
     power_expand_board.set_power("DC6",a)
-    time.sleep(0.1)
-    power_expand_board.set_power("DC6",0)
 
 def doo(a:int):
     power_expand_board.set_power("DC7",a)
@@ -168,10 +150,10 @@ def control_movement():
 
     #max_power = max(abs(lf), abs(rf), abs(lb), abs(rb), 100)
 
-    lf = lf * 100 / 100
-    rf = rf * 100 / 100
-    lb = lb * 100 / 100
-    rb = rb * 100 / 100
+    lf = lf * 1
+    rf = rf * 0.8
+    lb = lb * 1
+    rb = rb * 2
 
     en["LF"].set_power(lf)
     en["LB"].set_power(lb)
@@ -200,40 +182,37 @@ def controller_1():
         lift(100)
 
     elif gamepad.is_key_pressed("Left"):
-        doo(-75)
+        doo(-90)
         time.sleep(0.1)
         doo(0)
 
     elif gamepad.is_key_pressed("Right"):
-        doo(75)
+        doo(90)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100,-60)
-        power_expand_board.set_power("DC3",100)
-        gripper(-100)
 
     elif gamepad.is_key_pressed("R1"):
-        shooting(65)
+        shooting(60)
         shoot_angle(65)   
 
     elif gamepad.is_key_pressed("R2"):
         shooting(0)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(50)
+        shooting(45)    
 
     elif gamepad.is_key_pressed("≡"):
         shooting(40)
 
     elif gamepad.is_key_pressed("N2"):
-        shoot(70)
-        shoot_angle(0)   
+        shoot(80)
 
     elif gamepad.is_key_pressed("N3"):
-        shoot(-70)
+        shoot(-80)
 
     elif gamepad.is_key_pressed("N4"):
-        shooting(100)
+        shooting(80)
 
 def controller_2():
     control_movement()
@@ -244,11 +223,16 @@ def controller_2():
     elif gamepad.is_key_pressed("Down"):
         lift(75)
 
-    elif gamepad.is_key_pressed("Right"):
+    elif gamepad.is_key_pressed("R1"):
         gripper(-100)
 
-    elif gamepad.is_key_pressed("Left"):
+    elif gamepad.is_key_pressed("L1"):
         gripper(100)
+        time.sleep(0.1)
+        gripper(0)
+
+    elif gamepad.is_key_pressed("N4"):
+        stop_all()
 
 
 def change_mode():

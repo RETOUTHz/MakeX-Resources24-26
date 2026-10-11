@@ -137,7 +137,7 @@ def doo(a:int):
 MOVEMENT
 """
 
-def control_movement():
+def control_movement_me():
 
     x = -gamepad.get_joystick("Lx") * 1
     y = gamepad.get_joystick("Ly") / 1.5
@@ -160,51 +160,61 @@ def control_movement():
     en["RF"].set_power(-rf)
     en["RB"].set_power(-rb)
 
+def control_movement_on_left():            
+        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")*0.9) * 0.85)
+        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")*0.9) * 0.95)
+        lf = ((gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")*0.9) * 0.9 )
+        rb = ((gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")*0.9) * 0.9 )
+        en["RF"].set_power(rf)
+        en["RB"].set_power(rb)
+        en["LB"].set_power(-lb)
+        en["LF"].set_power(-lf)
+    
+    def control_movement_on_font():
+        rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
+        lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
+        lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
+        rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.85
+        en["RF"].set_power(-rf)
+        en["RB"].set_power(-rb)
+        en["LB"].set_power(lb)
+        en["LF"].set_power(lf)
+
 
 """
 MODE 1
 """
 
 def controller_1():
-    control_movement()
+    control_movement_on_font()
     if gamepad.is_key_pressed("N1"):
         feed(100,100,100)
-        shoot_angle(90)   
 
     elif gamepad.is_key_pressed("L1"):
-        feed(0,0,0)
-        stop_all()
+        shooting(45)
 
     elif gamepad.is_key_pressed("Up"):
-        lift(-100)
-
-    elif gamepad.is_key_pressed("Down"):
-        lift(100)
-
-    elif gamepad.is_key_pressed("Left"):
         doo(-90)
         time.sleep(0.1)
         doo(0)
 
-    elif gamepad.is_key_pressed("Right"):
+    elif gamepad.is_key_pressed("Down"):
         doo(90)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100,-60)
 
     elif gamepad.is_key_pressed("R1"):
-        shooting(60)
-        shoot_angle(65)   
+        shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(0)
+        shooting(60)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(45)    
+        shooting(75)    
 
     elif gamepad.is_key_pressed("≡"):
-        shooting(40)
-
+        pass
     elif gamepad.is_key_pressed("N2"):
         shoot(80)
 
@@ -212,28 +222,22 @@ def controller_1():
         shoot(-80)
 
     elif gamepad.is_key_pressed("N4"):
-        shooting(80)
+        stop_all()
 
 def controller_2():
-    control_movement()
+    control_movement_on_left()
 
-    if gamepad.is_key_pressed("Up"):
-        lift(-75)
+    if gamepad.is_key_pressed("L1"):
+        gripper(100)
+
+    elif gamepad.is_key_pressed("Up"):
+        lift(100)
 
     elif gamepad.is_key_pressed("Down"):
-        lift(75)
+        left(-100)
 
     elif gamepad.is_key_pressed("R1"):
         gripper(-100)
-
-    elif gamepad.is_key_pressed("L1"):
-        gripper(100)
-        time.sleep(0.1)
-        gripper(0)
-
-    elif gamepad.is_key_pressed("N4"):
-        stop_all()
-
 
 def change_mode():
     global mode
@@ -243,6 +247,13 @@ def change_mode():
         else:
             mode = "1"
         time.sleep(0.3)
+
+# def change_mode():
+#     global mode
+#     if gamepad.is_key_pressed("+"):
+#         mode = "1"
+#     elif gamepad.is_key_pressed("≡"):
+#         mode = "2"
 
 
 """

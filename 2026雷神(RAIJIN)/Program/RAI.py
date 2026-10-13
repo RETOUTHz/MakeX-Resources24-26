@@ -170,7 +170,7 @@ def control_movement_on_left():
         en["LB"].set_power(-lb)
         en["LF"].set_power(-lf)
     
-    def control_movement_on_font():
+def control_movement_on_font():
         rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
         lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
         lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
@@ -191,7 +191,7 @@ def controller_1():
         feed(100,100,100)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(45)
+        shooting(100)
 
     elif gamepad.is_key_pressed("Up"):
         doo(-90)
@@ -208,10 +208,10 @@ def controller_1():
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(60)
+        shooting(80)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(75)    
+        shooting(80)    
 
     elif gamepad.is_key_pressed("≡"):
         pass

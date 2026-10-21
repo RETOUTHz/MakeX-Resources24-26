@@ -19,10 +19,11 @@ INITIALISATION
 """
 
 en = {
-    "LF": encoder_motor_class("M3", "INDEX1"),
-    "LB": encoder_motor_class("M5", "INDEX1"),
-    "RF": encoder_motor_class("M1", "INDEX1"),
-    "RB": encoder_motor_class("M6", "INDEX1"),
+    "LF": encoder_motor_class("M2", "INDEX1"),
+    "LB": encoder_motor_class("M1", "INDEX1"),
+    "RF": encoder_motor_class("M5", "INDEX1"),
+    "RB": encoder_motor_class("M4", "INDEX1"),
+    "BL": encoder_motor_class("M6", "INDEX1"),
 }
 
 sv = {
@@ -100,17 +101,20 @@ def stop_all():
     power_expand_board.set_power("DC6",0)
     power_expand_board.set_power("DC7",0)
     power_expand_board.set_power("DC8",0)
+    en["BL"].set_power(0)
 
 """
 FUNCTION
 """
-def feed(a:int,b:int,c:int):
-    power_expand_board.set_power("DC1",-a)
-    power_expand_board.set_power("DC2",b)
-    power_expand_board.set_power("DC5",c)
+def feed(a:int,b:int):
+    power_expand_board.set_power("DC1",a)
+    en["BL"].set_power(b)
+    
+    
+
 
 def shoot(a:int):
-    power_expand_board.set_power("DC3",-a)
+    power_expand_board.set_power("DC3",a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
 
@@ -129,9 +133,9 @@ def lift(a:int):
 def gripper(a:int):
     power_expand_board.set_power("DC6",a)
 
-def doo(a:int):
+def doo(a:int,b:int):
     power_expand_board.set_power("DC7",a)
-    power_expand_board.set_power("DC8",-a)
+    power_expand_board.set_power("DC8",b)
     
 """
 MOVEMENT
@@ -141,19 +145,19 @@ def control_movement_me():
 
     x = -gamepad.get_joystick("Lx") * 1
     y = gamepad.get_joystick("Ly") / 1.5
-    r = -gamepad.get_joystick("Rx") / 1.5
+    r = -gamepad.get_joystick("Rx") / 1.2
 
-    lf = y + x + r
-    rf = y - x - r
-    lb = y - x + r
-    rb = y + x - r
+    lf = + y + x + r
+    rf = + y - x - r
+    lb = + y - x + r
+    rb = - y - x + r
 
     #max_power = max(abs(lf), abs(rf), abs(lb), abs(rb), 100)
 
-    lf = lf * 1
+    lf = lf * 0.8
     rf = rf * 0.8
-    lb = lb * 1
-    rb = rb * 2
+    lb = lb * 0.8
+    rb = rb * 1
 
     en["LF"].set_power(lf)
     en["LB"].set_power(lb)
@@ -173,7 +177,7 @@ def control_movement_on_left():
 def control_movement_on_font():
         rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
         lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
-        lf = (-gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
+        lf = (gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
         rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.85
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
@@ -187,36 +191,37 @@ MODE 1
 
 def controller_1():
     control_movement_on_font()
+    
     if gamepad.is_key_pressed("N1"):
-        feed(100,100,100)
+        feed(100,-100)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(100)
+        shooting(45)
 
     elif gamepad.is_key_pressed("Up"):
-        doo(-90)
+        doo(-70,-70)
         time.sleep(0.1)
-        doo(0)
+        doo(0,0)
 
     elif gamepad.is_key_pressed("Down"):
-        doo(90)
+        doo(100,100)
 
     elif gamepad.is_key_pressed("L2"):
-        feed(-100,-100,-60)
+        feed(-100,100)
 
     elif gamepad.is_key_pressed("R1"):
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(80)
+        shooting(55)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(80)    
+        shooting(38)    
 
     elif gamepad.is_key_pressed("≡"):
         pass
     elif gamepad.is_key_pressed("N2"):
-        shoot(80)
+        shoot(50)
 
     elif gamepad.is_key_pressed("N3"):
         shoot(-80)

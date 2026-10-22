@@ -164,21 +164,22 @@ def control_movement_me():
     en["RF"].set_power(-rf)
     en["RB"].set_power(-rb)
 
-def control_movement_on_left():            
-        rf = ((gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")*0.9) * 0.85)
-        lb = (((gamepad.get_joystick("Lx") * 0.8 ) - gamepad.get_joystick("Rx")*0.9) * 0.95)
-        lf = ((gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx")*0.9) * 0.9 )
-        rb = ((gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx")*0.9) * 0.9 )
-        en["RF"].set_power(rf)
-        en["RB"].set_power(rb)
-        en["LB"].set_power(-lb)
-        en["LF"].set_power(-lf)
     
+def control_movement_on_left():
+        rf = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx"))
+        lb = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
+        lf = (-gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx"))
+        rb = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx"))
+        en["RF"].set_power(-rf)
+        en["RB"].set_power(-rb)
+        en["LB"].set_power(lb)
+        en["LF"].set_power(lf)
+
 def control_movement_on_font():
-        rf = (gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx")) * 0.8
-        lb = (gamepad.get_joystick("Ly") + gamepad.get_joystick("Rx")) * 0.8
-        lf = (gamepad.get_joystick("Lx") + gamepad.get_joystick("Rx")) * 0.85
-        rb = (-gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx")) * 0.85
+        rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx"))
+        lb = (gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx"))
+        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
+        rb = (-gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx"))
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
@@ -256,7 +257,7 @@ def change_mode():
 # def change_mode():
 #     global mode
 #     if gamepad.is_key_pressed("+"):
-#         mode = "1"
+#         mode = "1" 
 #     elif gamepad.is_key_pressed("≡"):
 #         mode = "2"
 

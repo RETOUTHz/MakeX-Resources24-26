@@ -200,7 +200,7 @@ def controller_1():
         shooting(45)
 
     elif gamepad.is_key_pressed("Up"):
-        doo(-70,-70)
+        doo(-100,-100)
         time.sleep(0.1)
         doo(0,0)
 
@@ -217,7 +217,7 @@ def controller_1():
         shooting(55)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(38)    
+        shooting(50)    
 
     elif gamepad.is_key_pressed("≡"):
         pass

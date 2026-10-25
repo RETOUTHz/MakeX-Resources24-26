@@ -110,9 +110,6 @@ def feed(a:int,b:int):
     power_expand_board.set_power("DC1",a)
     en["BL"].set_power(b)
     
-    
-
-
 def shoot(a:int):
     power_expand_board.set_power("DC3",a)
     time.sleep(0.1)
@@ -163,8 +160,7 @@ def control_movement_me():
     en["LB"].set_power(lb)
     en["RF"].set_power(-rf)
     en["RB"].set_power(-rb)
-
-    
+  
 def control_movement_on_left():
         rf = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx"))
         lb = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
@@ -184,7 +180,6 @@ def control_movement_on_font():
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
         en["LF"].set_power(lf)
-
 
 """
 MODE 1
@@ -261,18 +256,15 @@ def change_mode():
 #     elif gamepad.is_key_pressed("≡"):
 #         mode = "2"
 
-
 """
 MAIN
 """
 
 while True:
-
     if power_manage_module.is_auto_mode():
         auto()
         while power_manage_module.is_auto_mode():
             pass
-
     else:
         change_mode()
         if mode == "1" :

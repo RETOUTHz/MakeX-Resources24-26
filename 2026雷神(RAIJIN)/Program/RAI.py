@@ -27,8 +27,7 @@ en = {
 }
 
 sv = {
-    "tua": smartservo_class("M2", "INDEX1"),
-    "shooter": smartservo_class("M4","INDEX1")
+    "tua": smartservo_class("M5", "INDEX1"),
     }
 
 mode = "1"
@@ -119,8 +118,8 @@ def shooting(a:int):
     power_expand_board.set_power("BL1",a)
     power_expand_board.set_power("BL2",a)
 
-def shoot_angle(a:int):
-    sv["shooter"].move_to(a,50)
+def box_angle(a:int):
+    sv["tua"].move_to(a,50)
 
 def lift(a:int):
     power_expand_board.set_power("DC4",a)
@@ -133,6 +132,10 @@ def gripper(a:int):
 def doo(a:int,b:int):
     power_expand_board.set_power("DC7",a)
     power_expand_board.set_power("DC8",b)
+
+def red_servo():
+    if sv["tua"].get_value("current") > 1250:
+        sv["tua"].set_power(0)
     
 """
 MOVEMENT
@@ -190,6 +193,7 @@ def controller_1():
     
     if gamepad.is_key_pressed("N1"):
         feed(100,-100)
+        box_angle(10)
 
     elif gamepad.is_key_pressed("L1"):
         shooting(45)
@@ -224,6 +228,12 @@ def controller_1():
 
     elif gamepad.is_key_pressed("N4"):
         stop_all()
+
+    elif gamepad.is_key_pressed("Left"):
+        box_angle(0)
+    
+    elif gamepad.is_key_pressed("Right"):
+        box_angle(80)
 
 def controller_2():
     control_movement_on_left()
@@ -269,5 +279,7 @@ while True:
         change_mode()
         if mode == "1" :
             controller_1()
+            red_servo()
         else:
             controller_2()
+            red_servo()

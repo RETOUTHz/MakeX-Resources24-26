@@ -134,7 +134,7 @@ def doo(a:int,b:int):
     power_expand_board.set_power("DC8",b)
 
 def red_servo():
-    if sv["tua"].get_value("current") > 1250:
+    if sv["tua"].get_value("current") > 1350:
         sv["tua"].set_power(0)
     
 """
@@ -221,10 +221,10 @@ def controller_1():
     elif gamepad.is_key_pressed("≡"):
         pass
     elif gamepad.is_key_pressed("N2"):
-        shoot(80)
+        shoot(100)
 
     elif gamepad.is_key_pressed("N3"):
-        shoot(-80)
+        shoot(-100)
 
     elif gamepad.is_key_pressed("N4"):
         stop_all()

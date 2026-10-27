@@ -130,8 +130,8 @@ def gripper(a:int):
     power_expand_board.set_power("DC6",a)
 
 def doo(a:int,b:int):
-    power_expand_board.set_power("DC7",a)
-    power_expand_board.set_power("DC8",b)
+    power_expand_board.set_power("DC5",a)
+    power_expand_board.set_power("DC6",b)
 
 def red_servo():
     if sv["tua"].get_value("current") > 1350:

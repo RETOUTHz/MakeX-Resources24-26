@@ -175,10 +175,10 @@ def control_movement_on_left():
         en["LF"].set_power(lf)
 
 def control_movement_on_font():
-        rf = (gamepad.get_joystick("Lx") - -gamepad.get_joystick("Rx"))
-        lb = (gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx"))
-        lf = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
-        rb = (-gamepad.get_joystick("Ly") - gamepad.get_joystick("Rx"))
+        rf = (gamepad.get_joystick("Lx") - -(gamepad.get_joystick("Rx")*0.8))
+        lb = (gamepad.get_joystick("Lx") + -(gamepad.get_joystick("Rx")*0.8))
+        lf = (gamepad.get_joystick("Ly") + -(gamepad.get_joystick("Rx")*0.8))
+        rb = (-gamepad.get_joystick("Ly") - (gamepad.get_joystick("Rx")*0.8))
         en["RF"].set_power(-rf)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)

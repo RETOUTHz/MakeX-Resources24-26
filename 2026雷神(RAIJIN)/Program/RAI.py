@@ -36,24 +36,25 @@ mode = "1"
 AUTOMATIC
 """
 def auto():
-    # slide_left(50)
-    # time.sleep(0.9) 
-    # stop_moving()
-    # move_backward(50)
-    # time.sleep(0.3)
-    # stop_moving()
-    # move_forward(50)
-    # time.sleep(1.5)
-    # stop_moving()
-    pass
-
-     
+    box_angle(80)
+    slide_right(50)
+    time.sleep(0.5)
+    stop_moving()
+    move_forward(80)
+    time.sleep(2)
+    stop_moving()
+    feed(0,-100)
+    time.sleep(1)
+    box_angle(10)
+    sv["tua"].set_power(0)
+    time.sleep(5)
+    stop_all()
 
 def move_forward(a:int):
     en["LF"].set_power(a)
-    en["LB"].set_power(a)
-    en["RF"].set_power(-a)
-    en["RB"].set_power(-a)
+    en["LB"].set_power(0)
+    en["RF"].set_power(0)
+    en["RB"].set_powerz(-a)
 
 def move_backward(a:int):
     en["LF"].set_power(-a)

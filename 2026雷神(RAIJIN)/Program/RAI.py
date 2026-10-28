@@ -122,12 +122,12 @@ def box_angle(a:int):
     sv["tua"].move_to(a,50)
 
 def lift(a:int):
-    power_expand_board.set_power("DC4",a)
+    power_expand_board.set_power("DC8",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC4",0)
+    power_expand_board.set_power("DC8",0)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC6",a)
+    power_expand_board.set_power("DC7",a)
 
 def doo(a:int,b:int):
     power_expand_board.set_power("DC5",a)

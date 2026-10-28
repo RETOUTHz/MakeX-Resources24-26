@@ -111,8 +111,12 @@ def feed(a:int,b:int):
     
 def shoot(a:int):
     power_expand_board.set_power("DC3",a)
+    power_expand_board.set_power("DC1",a)
+    en["BL"].set_power(a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
+    power_expand_board.set_power("DC1",0)
+    en["BL"].set_power(0)
 
 def shooting(a:int):
     power_expand_board.set_power("BL1",a)
@@ -196,7 +200,7 @@ def controller_1():
         box_angle(10)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(45)
+        shooting(70)
 
     elif gamepad.is_key_pressed("Up"):
         doo(-100,-100)
@@ -213,7 +217,7 @@ def controller_1():
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(55)
+        shooting(85)
     
     elif gamepad.is_key_pressed("+"):
         shooting(50)    
@@ -245,7 +249,7 @@ def controller_2():
         lift(100)
 
     elif gamepad.is_key_pressed("Down"):
-        left(-100)
+        lift(-100)
 
     elif gamepad.is_key_pressed("R1"):
         gripper(-100)

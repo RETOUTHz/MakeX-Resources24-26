@@ -13,6 +13,7 @@ from mbuild import gamepad
 
 from mbuild.encoder_motor import encoder_motor_class
 from mbuild.smartservo import smartservo_class
+from mbuild.ranging_sensor import ranging_sensor_class
 
 """
 INITIALISATION
@@ -30,61 +31,126 @@ sv = {
     "tua": smartservo_class("M5", "INDEX1"),
     }
 
+bk = ranging_sensor_class("PORT5", "INDEX1")
+
+
 mode = "1"
 
+def select():
+    if bk.get_distance() > 20:
+        auto_left()
+    else:
+        auto_right()
 """
 AUTOMATIC
 """
-def auto():
+def auto_left():
     box_angle(80)
-    slide_right(50)
-    time.sleep(0.5)
+    move_backward(80)
+    time.sleep(0.4)
     stop_moving()
-    move_forward(80)
+    slide_right(70)
+    time.sleep(0.8)
+    stop_moving()
+    turn_right(70)
+    time.sleep(0.4)
+    stop_moving()
+    slide_right(80)
     time.sleep(2)
     stop_moving()
     feed(0,-100)
     time.sleep(1)
     box_angle(10)
     sv["tua"].set_power(0)
-    time.sleep(5)
+    time.sleep(2)
+    slide_right(80)
+    time.sleep(1)
+    turn_left(80)
+    time.sleep(1)
+    stop_moving()
+    turn_right(80)
+    time.sleep(2)
+    stop_moving()
+    turn_left(80)
+    time.sleep(1)
+    stop_moving()
+    slide_left(80)
+    time.sleep(1)
+    stop_moving()
+    time.sleep(3)
+    stop_all()
+
+def auto_right():
+    box_angle(80)
+    move_forward(80)
+    time.sleep(0.4)
+    stop_moving()
+    slide_right(70)
+    time.sleep(0.8)
+    stop_moving()
+    turn_left(70)
+    time.sleep(0.4)
+    stop_moving()
+    slide_right(80)
+    time.sleep(2)
+    stop_moving()
+    feed(0,-100)
+    time.sleep(1)
+    box_angle(10)
+    sv["tua"].set_power(0)
+    time.sleep(2)
+    slide_right(80)
+    time.sleep(1)
+    turn_right(80)
+    time.sleep(1)
+    stop_moving()
+    turn_left(80)
+    time.sleep(2)
+    stop_moving()
+    turn_right(80)
+    time.sleep(1)
+    stop_moving()
+    slide_left(80)
+    time.sleep(1)
+    stop_moving()
+    time.sleep(3)
     stop_all()
 
 def move_forward(a:int):
     en["LF"].set_power(a)
     en["LB"].set_power(0)
     en["RF"].set_power(0)
-    en["RB"].set_powerz(-a)
+    en["RB"].set_power(a)
 
 def move_backward(a:int):
     en["LF"].set_power(-a)
-    en["LB"].set_power(-a)
-    en["RF"].set_power(a)
-    en["RB"].set_power(a)
+    en["LB"].set_power(0)
+    en["RF"].set_power(0)
+    en["RB"].set_power(-a)
 
 def turn_right(a:int):
     en["LF"].set_power(a)
-    en["LB"].set_power(a)
-    en["RF"].set_power(a)
-    en["RB"].set_power(a)
+    en["LB"].set_power(-a)
+    en["RF"].set_power(-a)
+    en["RB"].set_power(-a)
 
 def turn_left(a:int):
     en["LF"].set_power(-a)
-    en["LB"].set_power(-a)
-    en["RF"].set_power(-a)
-    en["RB"].set_power(-a)
+    en["LB"].set_power(a)
+    en["RF"].set_power(a)
+    en["RB"].set_power(a)
 
 def slide_right(a:int):
-    en["LF"].set_power(a)
+    en["LF"].set_power(0)
     en["LB"].set_power(-a)
-    en["RF"].set_power(a)
-    en["RB"].set_power(-a)
+    en["RF"].set_power(a*1.5)
+    en["RB"].set_power(0)
 
 def slide_left(a:int):
-    en["LF"].set_power(-a)
+    en["LF"].set_power(0)
     en["LB"].set_power(a)
     en["RF"].set_power(-a)
-    en["RB"].set_power(a)
+    en["RB"].set_power(0)
 
 def stop_moving():
     en["LF"].set_power(0)
@@ -127,12 +193,12 @@ def box_angle(a:int):
     sv["tua"].move_to(a,50)
 
 def lift(a:int):
-    power_expand_board.set_power("DC8",a)
+    power_expand_board.set_power("DC4",a)
     time.sleep(0.1)
-    power_expand_board.set_power("DC8",0)
+    power_expand_board.set_power("DC4",0)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC7",a)
+    power_expand_board.set_power("DC2",a)
 
 def doo(a:int,b:int):
     power_expand_board.set_power("DC5",a)
@@ -174,7 +240,7 @@ def control_movement_on_left():
         lb = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
         lf = (-gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx"))
         rb = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx"))
-        en["RF"].set_power(-rf)
+        en["RF"].set_power(-rf*1.2)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
         en["LF"].set_power(lf)
@@ -184,7 +250,7 @@ def control_movement_on_font():
         lb = (gamepad.get_joystick("Lx") + -(gamepad.get_joystick("Rx")*0.8))
         lf = (gamepad.get_joystick("Ly") + -(gamepad.get_joystick("Rx")*0.8))
         rb = (-gamepad.get_joystick("Ly") - (gamepad.get_joystick("Rx")*0.8))
-        en["RF"].set_power(-rf)
+        en["RF"].set_power(-rf*1.2)
         en["RB"].set_power(-rb)
         en["LB"].set_power(lb)
         en["LF"].set_power(lf)
@@ -201,10 +267,10 @@ def controller_1():
         box_angle(10)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(70)
+        shooting(80)
 
     elif gamepad.is_key_pressed("Up"):
-        doo(-100,-100)
+        doo(-80,-80)
         time.sleep(0.1)
         doo(0,0)
 
@@ -218,7 +284,7 @@ def controller_1():
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(90)
+        shooting(95)
     
     elif gamepad.is_key_pressed("+"):
         shooting(50)    
@@ -226,7 +292,7 @@ def controller_1():
     elif gamepad.is_key_pressed("≡"):
         pass
     elif gamepad.is_key_pressed("N2"):
-        shoot(70)
+        shoot(60)
 
     elif gamepad.is_key_pressed("N3"):
         shoot(-100)
@@ -277,7 +343,7 @@ MAIN
 
 while True:
     if power_manage_module.is_auto_mode():
-        auto()
+        auto_left()
         while power_manage_module.is_auto_mode():
             pass
     else:

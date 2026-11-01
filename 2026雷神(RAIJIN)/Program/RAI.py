@@ -37,7 +37,7 @@ bk = ranging_sensor_class("PORT5", "INDEX1")
 mode = "1"
 
 def select():
-    if bk.get_distance() > 20:
+    if bk.get_distance() > 15:
         auto_left()
     else:
         auto_right()
@@ -53,12 +53,12 @@ def auto_left():
     time.sleep(0.8)
     stop_moving()
     turn_right(70)
-    time.sleep(0.4)
+    time.sleep(0.3)
     stop_moving()
     slide_right(80)
     time.sleep(2)
     stop_moving()
-    feed(0,-100)
+    feed(100,100)
     time.sleep(1)
     box_angle(10)
     sv["tua"].set_power(0)
@@ -81,40 +81,27 @@ def auto_left():
     stop_all()
 
 def auto_right():
-    box_angle(80)
-    move_forward(80)
-    time.sleep(0.4)
-    stop_moving()
-    slide_right(70)
-    time.sleep(0.8)
-    stop_moving()
-    turn_left(70)
-    time.sleep(0.4)
-    stop_moving()
-    slide_right(80)
-    time.sleep(2)
-    stop_moving()
-    feed(0,-100)
-    time.sleep(1)
-    box_angle(10)
-    sv["tua"].set_power(0)
-    time.sleep(2)
-    slide_right(80)
-    time.sleep(1)
-    turn_right(80)
-    time.sleep(1)
-    stop_moving()
-    turn_left(80)
-    time.sleep(2)
-    stop_moving()
-    turn_right(80)
-    time.sleep(1)
-    stop_moving()
     slide_left(80)
-    time.sleep(1)
+    time.sleep(0.6)
     stop_moving()
+    move_forward(80)
+    time.sleep(1.5)
+    stop_moving()
+    feed(0,100)
+    box_angle(80)
+    turn_left(100)
+    time.sleep(0.6)
+    stop_moving()
+    slide_right(100)
     time.sleep(3)
-    stop_all()
+    stop_moving()
+    box_angle(0)
+    time.sleep(5)
+    stop_moving()
+    sv["tua"].set_power(0)
+
+
+    
 
 def move_forward(a:int):
     en["LF"].set_power(a)
@@ -198,6 +185,8 @@ def lift(a:int):
     power_expand_board.set_power("DC4",0)
 
 def gripper(a:int):
+    power_expand_board.set_power("DC2",-a)
+    time.sleep(0.1)
     power_expand_board.set_power("DC2",a)
 
 def doo(a:int,b:int):
@@ -246,13 +235,13 @@ def control_movement_on_left():
         en["LF"].set_power(lf)
 
 def control_movement_on_font():
-        rf = (gamepad.get_joystick("Lx") - -(gamepad.get_joystick("Rx")*0.8))
-        lb = (gamepad.get_joystick("Lx") + -(gamepad.get_joystick("Rx")*0.8))
-        lf = (gamepad.get_joystick("Ly") + -(gamepad.get_joystick("Rx")*0.8))
-        rb = (-gamepad.get_joystick("Ly") - (gamepad.get_joystick("Rx")*0.8))
+        rf = ((gamepad.get_joystick("Lx")*1.2) - -(gamepad.get_joystick("Rx")*0.8))
+        lb = ((gamepad.get_joystick("Lx")*1.2) + -(gamepad.get_joystick("Rx")*0.8))
+        lf = ((gamepad.get_joystick("Ly")*1.2) + -(gamepad.get_joystick("Rx")*0.8))
+        rb = ((-gamepad.get_joystick("Ly")*1.2) - (gamepad.get_joystick("Rx")*0.8))
         en["RF"].set_power(-rf*1.2)
         en["RB"].set_power(-rb)
-        en["LB"].set_power(lb)
+        en["LB"].set_power(lb*0.8)
         en["LF"].set_power(lf)
 
 """
@@ -263,8 +252,9 @@ def controller_1():
     control_movement_on_font()
     
     if gamepad.is_key_pressed("N1"):
-        feed(100,-100)
+        feed(100,100)
         box_angle(10)
+        power_expand_board.set_power("DC3",-100)
 
     elif gamepad.is_key_pressed("L1"):
         shooting(80)
@@ -278,13 +268,13 @@ def controller_1():
         doo(100,100)
 
     elif gamepad.is_key_pressed("L2"):
-        feed(-100,100)
+        feed(-100,-100)
 
     elif gamepad.is_key_pressed("R1"):
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(95)
+        shooting(92)
     
     elif gamepad.is_key_pressed("+"):
         shooting(50)    
@@ -307,7 +297,7 @@ def controller_1():
         box_angle(80)
 
 def controller_2():
-    control_movement_on_left()
+    control_movement_on_font()
 
     if gamepad.is_key_pressed("L1"):
         gripper(100)
@@ -320,6 +310,10 @@ def controller_2():
 
     elif gamepad.is_key_pressed("R1"):
         gripper(-100)
+
+    elif gamepad.is_key_pressed("N4"):
+        gripper(0)
+
 
 def change_mode():
     global mode
@@ -343,7 +337,7 @@ MAIN
 
 while True:
     if power_manage_module.is_auto_mode():
-        auto_left()
+        auto_right()
         while power_manage_module.is_auto_mode():
             pass
     else:

@@ -167,9 +167,11 @@ def shoot(a:int):
     power_expand_board.set_power("DC3",a)
     power_expand_board.set_power("DC1",a)
     en["BL"].set_power(a)
+    doo(-a,-a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
     power_expand_board.set_power("DC1",0)
+    doo(0,0)
     en["BL"].set_power(0)
 
 def shooting(a:int):
@@ -248,32 +250,80 @@ def control_movement_on_font():
 MODE 1
 """
 
-def controller_1():
+# def controller_1():
+#     control_movement_on_font()
+    
+#     if gamepad.is_key_pressed("N1"):
+#         feed(100,100)
+#         box_angle(10)
+#         power_expand_board.set_power("DC3",-100)
+
+#     elif gamepad.is_key_pressed("L1"):
+#         shooting(80)
+
+#     elif gamepad.is_key_pressed("Up"):
+#         doo(-80,-80)
+#         time.sleep(0.1)
+#         doo(0,0)
+
+#     elif gamepad.is_key_pressed("Down"):
+#         doo(100,100)
+
+#     elif gamepad.is_key_pressed("L2"):
+#         feed(-100,-100)
+
+#     elif gamepad.is_key_pressed("R1"):
+#         shooting(0)
+
+#     elif gamepad.is_key_pressed("R2"):
+#         shooting(92)
+    
+#     elif gamepad.is_key_pressed("+"):
+#         shooting(50)    
+
+#     elif gamepad.is_key_pressed("≡"):
+#         pass
+#     elif gamepad.is_key_pressed("N2"):
+#         shoot(60)
+
+#     elif gamepad.is_key_pressed("N3"):
+#         shoot(-100)
+
+#     elif gamepad.is_key_pressed("N4"):
+#         stop_all()
+
+#     elif gamepad.is_key_pressed("Left"):
+#         box_angle(0)
+    
+#     elif gamepad.is_key_pressed("Right"):
+#         box_angle(80)
+
+def controller_2():
     control_movement_on_font()
     
     if gamepad.is_key_pressed("N1"):
         feed(100,100)
         box_angle(10)
         power_expand_board.set_power("DC3",-100)
+        doo(100,100)
+
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(80)
+        stop_all()
 
     elif gamepad.is_key_pressed("Up"):
-        doo(-80,-80)
-        time.sleep(0.1)
-        doo(0,0)
+        box_angle(80)
 
     elif gamepad.is_key_pressed("Down"):
-        doo(100,100)
+        box_angle(0)
 
     elif gamepad.is_key_pressed("L2"):
         feed(-100,-100)
 
-    elif gamepad.is_key_pressed("R1"):
+    elif gamepad.is_key_pressed("R2"):
         shooting(0)
 
-    elif gamepad.is_key_pressed("R2"):
+    elif gamepad.is_key_pressed("R1"):
         shooting(92)
     
     elif gamepad.is_key_pressed("+"):
@@ -281,6 +331,7 @@ def controller_1():
 
     elif gamepad.is_key_pressed("≡"):
         pass
+
     elif gamepad.is_key_pressed("N2"):
         shoot(60)
 
@@ -288,15 +339,14 @@ def controller_1():
         shoot(-100)
 
     elif gamepad.is_key_pressed("N4"):
-        stop_all()
+        shooting(50)  
 
     elif gamepad.is_key_pressed("Left"):
-        box_angle(0)
+        shooting(70)
     
     elif gamepad.is_key_pressed("Right"):
-        box_angle(80)
-
-def controller_2():
+        shooting(80)
+def controller_gr():
     control_movement_on_font()
 
     if gamepad.is_key_pressed("L1"):
@@ -343,8 +393,8 @@ while True:
     else:
         change_mode()
         if mode == "1" :
-            controller_1()
+            controller_2()
             red_servo()
         else:
-            controller_2()
+            controller_gr()
             red_servo()

@@ -303,7 +303,7 @@ def controller_2():
     
     if gamepad.is_key_pressed("N1"):
         feed(100,100)
-        box_angle(10)
+        box_angle(15)
         power_expand_board.set_power("DC3",-100)
         doo(100,100)
 

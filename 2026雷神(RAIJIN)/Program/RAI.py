@@ -22,13 +22,13 @@ INITIALISATION
 en = {
     "LF": encoder_motor_class("M2", "INDEX1"),
     "LB": encoder_motor_class("M1", "INDEX1"),
-    "RF": encoder_motor_class("M5", "INDEX1"),
+    "RF": encoder_motor_class("M3", "INDEX1"),
     "RB": encoder_motor_class("M4", "INDEX1"),
     "BL": encoder_motor_class("M6", "INDEX1"),
 }
 
 sv = {
-    "tua": smartservo_class("M5", "INDEX1"),
+    "tua": smartservo_class("M3", "INDEX1"),
     }
 
 bk = ranging_sensor_class("PORT5", "INDEX1")
@@ -227,7 +227,7 @@ def control_movement_me():
     en["RB"].set_power(-rb)
   
 def control_movement_on_left():
-        rf = (gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx"))
+        rf = (-gamepad.get_joystick("Ly") - -gamepad.get_joystick("Rx"))
         lb = (gamepad.get_joystick("Ly") + -gamepad.get_joystick("Rx"))
         lf = (-gamepad.get_joystick("Lx") + -gamepad.get_joystick("Rx"))
         rb = (gamepad.get_joystick("Lx") - gamepad.get_joystick("Rx"))
@@ -237,7 +237,7 @@ def control_movement_on_left():
         en["LF"].set_power(lf)
 
 def control_movement_on_font():
-        rf = ((gamepad.get_joystick("Lx")*1.2) - -(gamepad.get_joystick("Rx")*0.8))
+        rf = ((-gamepad.get_joystick("Lx")*1.2) - (gamepad.get_joystick("Rx")*0.8))
         lb = ((gamepad.get_joystick("Lx")*1.2) + -(gamepad.get_joystick("Rx")*0.8))
         lf = ((gamepad.get_joystick("Ly")*1.2) + -(gamepad.get_joystick("Rx")*0.8))
         rb = ((-gamepad.get_joystick("Ly")*1.2) - (gamepad.get_joystick("Rx")*0.8))

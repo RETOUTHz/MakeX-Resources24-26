@@ -259,7 +259,7 @@ def controller_1():
         power_expand_board.set_power("DC3",-100)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(80)
+        shooting(55)
 
     elif gamepad.is_key_pressed("Up"):
         doo(-80,-80)
@@ -276,10 +276,10 @@ def controller_1():
         shooting(0)
 
     elif gamepad.is_key_pressed("R2"):
-        shooting(92)
+        shooting(70)
     
     elif gamepad.is_key_pressed("+"):
-        shooting(50)    
+        shooting(40)    
 
     elif gamepad.is_key_pressed("≡"):
         pass

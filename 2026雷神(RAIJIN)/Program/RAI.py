@@ -187,9 +187,9 @@ def lift(a:int):
     power_expand_board.set_power("DC4",0)
 
 def gripper(a:int):
-    power_expand_board.set_power("DC2",-a)
-    time.sleep(0.1)
     power_expand_board.set_power("DC2",a)
+    time.sleep(0.1)
+    power_expand_board.set_power("DC2",0)
 
 def doo(a:int,b:int):
     power_expand_board.set_power("DC5",a)
@@ -358,7 +358,9 @@ def controller_gr():
         lift(-100)
 
     elif gamepad.is_key_pressed("R1"):
-        gripper(-100)
+        power_expand_board.set_power("DC2",-100)
+        time.sleep(0.1)
+        power_expand_board.set_power("DC2",-50)
 
     elif gamepad.is_key_pressed("N4"):
         gripper(0)

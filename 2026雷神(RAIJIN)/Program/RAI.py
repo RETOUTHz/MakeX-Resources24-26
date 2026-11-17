@@ -296,7 +296,7 @@ def controller_1():
         box_angle(0)
     
     elif gamepad.is_key_pressed("Right"):
-        box_angle(80)
+        box_angle(90)
 
 # def controller_2():
 #     control_movement_on_font()

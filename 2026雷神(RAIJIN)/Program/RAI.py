@@ -167,11 +167,9 @@ def shoot(a:int):
     power_expand_board.set_power("DC3",a)
     power_expand_board.set_power("DC1",a)
     en["BL"].set_power(a)
-    doo(-a,-a)
     time.sleep(0.1)
     power_expand_board.set_power("DC3",0)
     power_expand_board.set_power("DC1",0)
-    doo(0,0)
     en["BL"].set_power(0)
 
 def shooting(a:int):

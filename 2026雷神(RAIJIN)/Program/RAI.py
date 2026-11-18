@@ -254,10 +254,11 @@ def controller_1():
     if gamepad.is_key_pressed("N1"):
         feed(100,100)
         box_angle(10)
-        power_expand_board.set_power("DC3",-100)
+        power_expand_board.set_power("DC3",100)
+        power_expand_board.set_power("DC1",-100)
 
     elif gamepad.is_key_pressed("L1"):
-        shooting(55)
+        shooting(53)
 
     elif gamepad.is_key_pressed("Up"):
         doo(-80,-80)
@@ -302,7 +303,7 @@ def controller_1():
 #     if gamepad.is_key_pressed("N1"):
 #         feed(100,100)
 #         box_angle(25)
-#         power_expand_board.set_power("DC3",-100)
+#         power_expand_board.set_power("DC3",100)
 #         doo(100,100)
 
 #     elif gamepad.is_key_pressed("L1"):
@@ -386,7 +387,8 @@ MAIN
 
 while True:
     if power_manage_module.is_auto_mode():
-        auto_right()
+        auto_right() 
+        pass
         while power_manage_module.is_auto_mode():
             pass
     else:
